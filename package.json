@@ -1,0 +1,27 @@
+{
+  "name": "uos-babsang",
+  "version": "1.0.0",
+  "description": "Software Engineering Project of UOS group 2",
+  "scripts": {
+    "server": "nodemon --exec babel-node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tank3a/uos-babsang.git"
+  },
+  "author": "Jongwon, Kim, ",
+  "license": "UOS",
+  "bugs": {
+    "url": "https://github.com/tank3a/uos-babsang/issues"
+  },
+  "homepage": "https://github.com/tank3a/uos-babsang#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/node": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "nodemon": "^2.0.13"
+  }
+}

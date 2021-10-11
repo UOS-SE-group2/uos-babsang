@@ -1,0 +1,22 @@
+# For Developers
+
+1. express
+   웹 백엔드 프레임워크로, http통신(Request, Response, Get, Post, Delete) 핸들러를 제공하고, 접속 등 여러 기능을 도와준다.
+
+2. nodejs
+   웹브라우저 내부에서만 구현가능한 javascript를 외부에서 실행할 수 있도록 돕는 런타임 엔진이다.
+
+3. babel-node
+   javascript 컴파일러로, ES6로 작성한 코드를 plain javascript로 변환해준다.
+
+4. nodemon
+   node가 실행하는 파일을 감시하다가, 변경이 생기면 자동 재시작을 해주는 기능
+
+5. pug
+   view engine으로 html을 좀 더 javascript-friendly하게 사용할 수 있다.
+
+6. webpack
+    모듈을 나누어 관리하고, 여러 연관있는 파일들(js파일, css파일 등)을 하나의 모듈로 묶어준다. 리액트나 리액트 네이티브 등에선 webpack이 내장되어 있지만, 기본 nodejs엔 없기 때문에 따로 작성할 예정이다.
+
+7. dotenv
+    `.env` 파일에 들어간 내용들을 파일에서 호출할 수 있게 한다(변수로).

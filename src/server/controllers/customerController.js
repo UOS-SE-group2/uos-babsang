@@ -1,4 +1,7 @@
-
+//회원가입
+export const getJoinAsCustomer = (req, res) => res.render("customer/join");
+//구현해야함
+//export const postJoinAsCustomer = 
 //마이페이지
 export const customerPage = (req, res) => res.render("customer/profile");
 
@@ -18,3 +21,11 @@ export const getpostingReview = (req, res) => res.render("customer/reviewing");
 
 //리뷰 작성내역
 export const reviewList = (req, res) => res.render("customer/reviewList");
+
+//장바구니
+export const basket = (req, res) => res.render("customer/basket");
+
+//결제
+export const getPayment = (req, res) => res.render("customer/payment");
+//구현해야함
+//export const postPayment = 

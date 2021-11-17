@@ -1,5 +1,7 @@
 import express from "express";
-import {home, getLogin, postLogin, getJoinAsCustomer, getJoinAsCustomer, getJoinAsManager, postJoinAsManager, search, restaurant} from "../controllers/homeController";
+import {home, getLogin, postLogin, search, restaurant} from "../controllers/homeController";
+import { getJoinAsCustomer, getJoinAsCustomer } from "../controllers/customerController";
+import { getJoinAsManager, postJoinAsManager } from "../controllers/managerController";
 
 const rootRoute = express.Router();
 
@@ -8,6 +10,6 @@ rootRoute.route("/login").get(getLogin).post(postLogin);
 rootRoute.route("/join_as_customer").get(getJoinAsCustomer).post(postJoinAsCustomer);
 rootRoute.route("/join_as_manager").get(getJoinAsManager).post(postJoinAsManager);
 rootRoute.get("/search", search);
-rootRoute.get("/:id", restaurant);
+rootRoute.get("/restaurant/:id", restaurant);
 
 export default rootRoute;

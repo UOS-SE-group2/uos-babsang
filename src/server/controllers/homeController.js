@@ -6,14 +6,6 @@ export const getLogin = (req, res) => res.render("login");
 /*추가해야함 */
 //export const postLogin = (req, res) => res.redirect("/");
 
-//회원가입
-export const getJoinAsCustomer = (req, res) => res.render("customer/join");
-//구현해야함
-//export const postJoinAsCustomer = 
-export const getJoinAsManager = (req, res) => res.render("manager/join");
-//구현해야함
-//export const postJoinAsManager = 
-
 //검색된 화면
 export const search = (req, res) => res.render("search");
 

@@ -1,6 +1,6 @@
 import express from "express";
 import {home, getLogin, postLogin, search, restaurant} from "../controllers/homeController";
-import { getJoinAsCustomer, getJoinAsCustomer } from "../controllers/customerController";
+import { getJoinAsCustomer, postJoinAsCustomer } from "../controllers/customerController";
 import { getJoinAsManager, postJoinAsManager } from "../controllers/managerController";
 
 const rootRoute = express.Router();

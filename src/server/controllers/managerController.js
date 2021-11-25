@@ -14,7 +14,8 @@ export const getEditManager = (req, res) => res.render("manager/editStore");
 export const sales = (req, res) => res.render("manager/sales");
 
 //주문들어온 내역확인
-export const orderlist = (req, res) => res.render("manager/orderlist");
+export const getOrderList = (req, res) => res.render("manager/orderList");
+//export const postOrderList = g
 //주문상세
 export const getorderDetail = (req, res) => res.render("manager/orderDetail");
 //구현해야함

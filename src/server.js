@@ -24,6 +24,7 @@ app.use(session({
     // session 추가되면 session 폴더 안에 파일로 저장
     store:new FileStore()
   }))
+app.use(express.static('views')); //html 파일 렌더링
 app.set("views", process.cwd()+"/src/views");
 app.set("view engine", "pug");
 app.set("x-powered-by", "false");

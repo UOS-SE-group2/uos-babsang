@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <title>UOS-TABLE</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" 
+rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="./mainstyle.css">
+    </head>
+    <body>
+       <div class="wrap">
+           <div class="intro">
+               <div class="header">
+                   
+                   <ul class="nav">
+
+                       <li><a href="/login">로그인</a></li>
+                       
+                       <li><a href="/join" >회원가입</a></li>
+                   </ul>    
+
+    
+                   
+                   <img src="./logo.png" style="display: inline-block;">
+                   <div class="search_area">
+                           <input type="search" placeholder="메뉴명 , 매장명을 입력하세요.">
+                           <span>검색</span>
+                        
+                    </div>
+                </div>
+               </div>
+
+           </div>
+       </div>
+       <div class="main">
+           <ul class="category"></ul>
+               <li><a href="index.html" style="font-weight: bold; font-size: large;">MAIN</a></li>
+               <li><a href="#">한식</a></li>
+               <li><a href="#">일식</a></li>
+               <li><a href="#">중식</a></li>
+               <li><a href="#">양식</a></li>
+               <li><a href="#">분식</a></li>
+               <li><a href="#">패스트푸드</a></li>
+           </ul>
+       </div>
+       <div class="sort">
+           <span>MAIN</span>
+           <select name="sort" id="sort">
+               <option value="random">기본순</option>
+               <option value="recommend">별점순</option>
+               <option value="recent">최신순</option>
+               
+           </select>
+       </div>
+       <div class="list">
+            <div class="first_one">
+               <img src="19.png" width="250" height="200">
+               <li>19고깃집 <img src="star.png" width="20" height="20">5.0 (75)</li>
+            </div>
+            <script src="list.js"></script>
+       </div>
+    </body>
+</html>

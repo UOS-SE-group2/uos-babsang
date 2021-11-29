@@ -1,0 +1,31 @@
+<DOCTYPE HTML5>
+    <html>
+      <head>
+        <meta charset="UTF-8">
+        <title>로그인</title>
+        <link rel="stylesheet" type="text/css" href="./login.css">
+      </head>
+
+      <body width="100%" height="100%">
+        <form action="/login" method="post" class="loginForm">
+          <h2>Login</h2>
+          <div class="idForm">
+            <input type="text" id="id" name="id" placeholder="id">
+          </div>
+          <div class="passForm">
+            <input type="password" id="pw" name="pw" placeholder="pw">
+          </div>
+          <button type="submit" class="btn" onclick="button()">
+            로그인
+          </button>
+          <script>
+              let button = () => {
+                alert('login Button !')
+            }
+          </script>
+          <div class="bottomText">
+            Don't you have ID? <a href="join.html">sign up</a>
+          </div>
+        </form>
+      </body>
+    </html>

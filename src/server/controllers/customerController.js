@@ -1,7 +1,34 @@
 //회원가입
 export const getJoinAsCustomer = (req, res) => res.render("customer/join");
-//구현해야함
-//export const postJoinAsCustomer = 
+export const postJoinAsCustomer = (req, res) => {
+    const {name, id, pw, pwcheck, email, phone} = req.body;
+    
+    if (name && pw && email) {
+        db.query('SELECT * FROM user WHERE name = ? AND id = ? AND pw = ? AND email = ? AND phone = ?', [name, id, pw, email, phone], function(error, results, fields) {
+            if (error) throw error;
+            if (results.length <= 0 && pw==pwcheck) {
+                db.query('INSERT INTO user (name, id, pw, email, phone) VALUES(?,?,?,?,?)', [name, id, pw, email, phone],
+                function (error, data) {
+                    if (error)
+                    console.log(error);
+                    else
+                    console.log(data);
+                });
+                  response.send('<script type="text/javascript">alert("회원가입을 환영합니다!"); document.location.href="/";</script>');    
+            } else if(pw!=pwcheck){                
+                response.send('<script type="text/javascript">alert("입력된 비밀번호가 서로 다릅니다."); document.location.href="/join";</script>');    
+            }
+            else {
+                response.send('<script type="text/javascript">alert("이미 존재하는 아이디 입니다."); document.location.href="/join";</script>');    
+            }            
+            response.end();
+        });
+    } else {
+        response.send('<script type="text/javascript">alert("모든 정보를 입력하세요"); document.location.href="/join";</script>');    
+        response.end();
+    }
+}
+
 //마이페이지
 export const customerPage = (req, res) => res.render("customer/profile");
 

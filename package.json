@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Software Engineering Project of UOS group 2",
   "scripts": {
-    "server": "nodemon --exec babel-node src/server.js"
+    "server": "nodemon --exec babel-node src/server.js",
+    "client": "webpack --mode=development -w"
   },
   "repository": {
     "type": "git",
@@ -16,16 +17,24 @@
   },
   "homepage": "https://github.com/tank3a/uos-babsang#readme",
   "dependencies": {
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.2",
     "morgan": "^1.10.0",
-    "pug": "^3.0.2"
+    "mysql": "^2.18.1",
+    "pug": "^3.0.2",
+    "session-file-store": "^1.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
     "@babel/node": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
+    "css-loader": "^6.5.1",
+    "mini-css-extract-plugin": "^2.4.5",
     "nodemon": "^2.0.13",
+    "style-loader": "^3.3.1",
     "webpack": "^5.58.1",
     "webpack-cli": "^4.9.0"
   }

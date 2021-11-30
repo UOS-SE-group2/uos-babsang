@@ -17,6 +17,14 @@ export const sales = (req, res) => res.render("manager/sales");
 export const getOrderList = (req, res) => res.render("manager/orderList");
 //export const postOrderList = g
 //주문상세
-export const getorderDetail = (req, res) => res.render("manager/orderDetail");
+export const getorderDetail = (req, res) => {
+    const userType = req.session.type;
+    if(!(userType == "manager")) {
+        return res.status(404).render("error");
+    }
+    const managerId = req.session.id;
+ //여기부터 구현   const orders = SELECT 
+    res.render("manager/orderDetail");
+}
 //구현해야함
 //export const postorderDetail = (req, res) =>

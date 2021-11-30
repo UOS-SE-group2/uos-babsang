@@ -1,4 +1,4 @@
-const mysql=require('mysql');
+import mysql from "mysql";
 
 const db = mysql.createConnection({ 
     host:'54.180.16.45', 
@@ -9,4 +9,5 @@ const db = mysql.createConnection({
 });
 
 db.connect();
-module.exports=db;
+
+export default db;

@@ -1,0 +1,93 @@
+*{
+    font-family: 'Gowun Batang', serif;
+    list-style: none;
+    text-decoration: none;
+    color: black;
+}
+
+.nav{
+    display: flex;
+    justify-content: flex-end;
+    line-height: 1px;
+    width:1280px;
+    margin: auto;
+}
+
+.nav > li> a{
+    margin: 30px;
+    border-left: 1px solid black;
+    padding-left: 40px;
+    padding-right: -40px;
+}
+
+.header > img{
+    margin-left: 660px;
+    padding-bottom: 30px;
+}
+
+.search_area{
+    display: inline-block;
+    margin-left: 480px
+}
+
+.search_area > input {
+    border-color: rgb(143, 85, 10);
+    border-style: double;
+    width: 500px;
+    height: 40px;
+    margin: 0px;
+}
+
+.search_area  > span{
+    font-size: 20px;
+    color: white;
+    border-color: rgb(143, 85, 10);
+    background-color:rgb(143, 85, 10);
+    margin: -5px;
+    padding-top: 2px;
+    padding-bottom: 9px;
+    padding-right: 10px;
+    padding-left: 7px;
+}
+
+.nav > img {
+    display: flex-end;
+}
+
+.main  {
+    display: flex;
+    justify-content: flex-start;
+    margin: auto;
+}
+
+.main > li {
+    margin-top: 70px;
+    margin-right: 30px;
+    margin-left: 30px;
+    border-right: 1px solid black;
+    padding: 10px;
+    line-height: 1px;
+    width: 100px
+}
+
+.sort{
+    margin: 75px;
+    margin-top: 100px;
+}
+
+.sort > span {
+    font-weight: bold;
+    padding-right: 40px;
+    font-size: 18px;
+}
+
+.list{
+    margin: 75px;
+    margin-top: 100px;
+    display: flex;
+}
+
+.first_one > li {
+    display: flex;
+    padding-top: 20px;
+}

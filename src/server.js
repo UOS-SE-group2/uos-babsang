@@ -5,8 +5,7 @@ import customerRoute from "./server/pages/customerRoute";
 import managerRoute from "./server/pages/managerRoute";
 import session from "express-session";
 import compression from "compression";
-import f from "session-file-store";
-const FileStore = f(session);
+const FileStore = require("session-file-store")(session);
 const cookieParser = require('cookie-parser');
 
 const app = express();

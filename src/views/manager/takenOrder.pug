@@ -1,0 +1,10 @@
+extends base
+include mixin_manager/orderDetail
+
+block content 
+    .orderContainer_manager 
+        each takenOrder in takenOrderList
+            +orderDetail(takenOrder)
+        else 
+            .emptyTakenOrder 
+                h3 No Orders Taken

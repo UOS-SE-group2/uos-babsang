@@ -1,3 +1,4 @@
+import db from "../../db";
 //회원가입
 export const getJoinAsCustomer = (req, res) => res.render("customer/join");
 export const postJoinAsCustomer = (req, res) => {

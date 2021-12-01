@@ -1,3 +1,5 @@
+import db from "../../db";
+
 //회원가입
 export const getJoinAsManager = (req, res) => res.render("manager/join");
 //구현해야함
@@ -18,13 +20,29 @@ export const getOrderList = (req, res) => res.render("manager/orderList");
 //export const postOrderList = g
 //주문상세
 export const getorderDetail = (req, res) => {
-    const userType = req.session.type;
-    if(!(userType == "manager")) {
+    const orderId = req.params.id;
+    try {
+        db.query(`SELECT Order.orderId, User.name, User.phone, Order.time, Order.menus, Order.isConfirmed FROM order Order, user User WHERE orderId = ${orderId} AND Order.userId = User.userId`, function(err, result, fields) {
+            if(result.length == 1) {
+                const takenOrder = result[0];
+                return res.render("manager/takenOrder", takenOrder);
+            }
+        });
+    } catch(error) {
         return res.status(404).render("error");
     }
-    const managerId = req.session.id;
  //여기부터 구현   const orders = SELECT 
-    res.render("manager/orderDetail");
+    res.render("manager/takenOrder");
 }
-//구현해야함
-//export const postorderDetail = (req, res) =>
+export const orderConfirm = (req, res) => {
+    const orderId = req.params.id;
+    db.query(`UPDATE order SET isConfirmed = true WHRER orderId = ${orderId}`);
+    res.send('<script type="text/javascript">alert("승인처리 되었습니다");</script>');
+    return res.redirect(`/manager/orderlist/${orderId}`);
+}
+export const orderDenied = (req, res) => {
+    const orderId = req.params.id;
+    db.query(`DELETE FROM order WHRER orderId = ${orderId}`);
+    res.send('<script type="text/javascript">alert("주문이 취소되었습니다");</script>');
+    return res.redirect(`/manager/orderlist/${orderId}`);
+}

@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import rootRoute from "./server/pages/rootRoute";
+import apiRoute from "./server/pages/apiRoute";
 import customerRoute from "./server/pages/customerRoute";
 import managerRoute from "./server/pages/managerRoute";
 import session from "express-session";
@@ -32,6 +33,7 @@ app.set("x-powered-by", "false");
 app.use(logger);
 
 app.use("/", rootRoute);
+app.use("/api", apiRoute);
 app.use("/customer", customerRoute);
 app.use("/manager", managerRoute);
 

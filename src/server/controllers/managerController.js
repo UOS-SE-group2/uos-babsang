@@ -37,12 +37,11 @@ export const getorderDetail = (req, res) => {
 export const orderConfirm = (req, res) => {
     const orderId = req.params.id;
     db.query(`UPDATE order SET isConfirmed = true WHRER orderId = ${orderId}`);
-    res.send('<script type="text/javascript">alert("승인처리 되었습니다");</script>');
-    return res.redirect(`/manager/orderlist/${orderId}`);
+    return res.send('<script type="text/javascript">alert("승인처리 되었습니다");</script>');
 }
 export const orderDenied = (req, res) => {
     const orderId = req.params.id;
     db.query(`DELETE FROM order WHRER orderId = ${orderId}`);
     res.send('<script type="text/javascript">alert("주문이 취소되었습니다");</script>');
-    return res.redirect(`/manager/orderlist/${orderId}`);
+    return res.status(200).redirect(`/manager/orderlist/${orderId}`);
 }

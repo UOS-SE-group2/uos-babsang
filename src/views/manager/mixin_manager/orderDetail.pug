@@ -10,10 +10,12 @@ mixin OrderDetail(takenOrder)
                 +receiptMenu(menu)
             span #{takenOrder.totalCost}    
 
-            if notConfirmed
-                a(href=`/orderlist/${takenOrder.id}/confirmed`) ✔️
-                a(href=`/orderlist/${takenOrder.id}/denied`) ❌
-            else
+        if notConfirmed
+            div.confirm_going
+                button.confirmed ✔️
+                button.denied ❌
+        else
+            div.confirm_finished
                 h4 승인된 주문
 
 

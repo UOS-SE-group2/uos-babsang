@@ -1,10 +1,13 @@
 extends base
 include mixin_manager/orderDetail
 
-block content 
-    .orderContainer_manager 
+block content
+    .orderContainer_manager(data-orderId=takenOrder.orderId)
         each takenOrder in takenOrderList
             +orderDetail(takenOrder)
         else 
             .emptyTakenOrder 
                 h3 No Orders Taken
+
+block script 
+    script(src="/dist/js/confirmOrder.js")

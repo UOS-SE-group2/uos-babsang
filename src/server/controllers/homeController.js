@@ -2,9 +2,16 @@ import db from "../../db";
 
 //홈 화면 for customer
 export const home = (req, res) => {
-    //모든 식당 정보 load
-    return res.render("home");
+    const restaurants = [{restaurantname: "one"}];
+    return res.render("home", {restaurants, catagoryId: 0});
 }
+
+export const getCatagory = (req, res) => {
+    const restaurants = null;
+    const catagoryId = req.params.id;
+    return res.render("home", {restaurants, catagoryId});
+}
+
 //로그인 화면
 export const getLogin = (req, res) => res.render("login");
 
@@ -17,18 +24,17 @@ export const postLogin = (req, res) => {
             if (error) throw error;
             if (results.length > 0) {
                 console.log(results);
-                req.session.isLoggedIn = true;
+                req.session.loggedIn = true;
                 req.session.user = results;
                 console.log(req.session);
-                res.redirect('/');
-                res.end();
+                return res.redirect("/");
             } else {         
                 res.status(400).send('<script type="text/javascript">alert("로그인 정보가 일치하지 않습니다."); document.location.href="/login";</script>');    
             }            
         });
     } else {        
         res.send('<script type="text/javascript">alert("id와 password를 입력하세요!"); document.location.href="/login";</script>');    
-        res.end();
+        res.redirect("/login");
     }
 }
 

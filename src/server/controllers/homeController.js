@@ -11,6 +11,10 @@ export const getCatagory = (req, res) => {
     const catagoryId = req.params.id;
     return res.render("home", {restaurants, catagoryId});
 }
+<<<<<<< HEAD
+=======
+/*SELECT restaurant.imageurl,restaurant.restaurantName,restaurant.star FROM category INNER JOIN restaurant ON category.categoryId=restaurant.categoryId WHERE category.categoryName='한식' ORDER BY restaurant.star DESC;*/
+>>>>>>> 4f15459062d837681f99b5a7566b9ed78acec8cb
 
 //로그인 화면
 export const getLogin = (req, res) => res.render("login");

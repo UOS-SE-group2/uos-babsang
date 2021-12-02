@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tank3a/uos-babsang.git"
+    "url": "git+https://github.com/UOS-SE-group2/uos-babsang"
   },
   "author": "Jongwon, Kim, ",
   "license": "UOS",
   "bugs": {
-    "url": "https://github.com/tank3a/uos-babsang/issues"
+    "url": "https://github.com/UOS-SE-group2/uos-babsang/issues"
   },
-  "homepage": "https://github.com/tank3a/uos-babsang#readme",
+  "homepage": "https://github.com/UOS-SE-group2/uos-babsang#readme",
   "dependencies": {
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",

@@ -10,7 +10,6 @@ const FileStore = require("session-file-store")(session);
 const cookieParser = require('cookie-parser');
 
 const app = express();
-const PORT = 5000;
 
 const logger = morgan("dev");
 app.use(express.urlencoded({extended:true}));
@@ -20,7 +19,7 @@ app.use(cookieParser())
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     // session 추가되면 session 폴더 안에 파일로 저장
     store:new FileStore(),
     cookie: {
@@ -37,7 +36,4 @@ app.use("/api", apiRoute);
 app.use("/customer", customerRoute);
 app.use("/manager", managerRoute);
 
-const handleListening = () => {
-    console.log("Server Listening on http://localhost:5000/");
-}
-app.listen(PORT, handleListening);
+export default app;

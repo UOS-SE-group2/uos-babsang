@@ -3,7 +3,7 @@ import {customerPage, getEditCustomer, postEditCustomer, orderhistory, ordered, 
 
 const customerRoute = express.Router();
 
-customerRoute.get("/:id", customerPage);
+customerRoute.get("/mypage", customerPage);
 //customerRoute.route("/edit").get(getEditCustomer).post(postEditCustomer);
 customerRoute.get("/orderhistory", orderhistory);
 customerRoute.get("orderhistory/:id", ordered);

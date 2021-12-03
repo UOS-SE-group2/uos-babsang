@@ -3,6 +3,7 @@ import db from "../../db";
 //홈 화면 for customer
 export const home = (req, res) => {
     const restaurants = [{restaurantname: "one"}];
+    console.log(req.session);
     return res.render("home", {restaurants, catagoryId: 0});
 }
 
@@ -11,10 +12,7 @@ export const getCatagory = (req, res) => {
     const catagoryId = req.params.id;
     return res.render("home", {restaurants, catagoryId});
 }
-<<<<<<< HEAD
-=======
 /*SELECT restaurant.imageurl,restaurant.restaurantName,restaurant.star FROM category INNER JOIN restaurant ON category.categoryId=restaurant.categoryId WHERE category.categoryName='한식' ORDER BY restaurant.star DESC;*/
->>>>>>> 4f15459062d837681f99b5a7566b9ed78acec8cb
 
 //로그인 화면
 export const getLogin = (req, res) => res.render("login");
@@ -27,10 +25,8 @@ export const postLogin = (req, res) => {
         db.query('SELECT * FROM user WHERE id=? AND pw = ?', [id, pw], function(error, results, fields) {
             if (error) throw error;
             if (results.length > 0) {
-                console.log(results);
                 req.session.loggedIn = true;
                 req.session.user = results;
-                console.log(req.session);
                 return res.redirect("/");
             } else {         
                 res.status(400).send('<script type="text/javascript">alert("로그인 정보가 일치하지 않습니다."); document.location.href="/login";</script>');    

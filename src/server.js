@@ -6,7 +6,7 @@ import customerRoute from "./server/pages/customerRoute";
 import managerRoute from "./server/pages/managerRoute";
 import session from "express-session";
 import compression from "compression";
-const FileStore = require("session-file-store")(session);
+import { localsMiddleware } from "./middlewares";
 const cookieParser = require('cookie-parser');
 
 const app = express();
@@ -21,7 +21,6 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     // session 추가되면 session 폴더 안에 파일로 저장
-    store:new FileStore(),
     cookie: {
       maxAge:3600000
     }
@@ -31,6 +30,8 @@ app.set("view engine", "pug");
 app.set("x-powered-by", "false");
 app.use(logger);
 
+
+app.use(localsMiddleware);
 app.use("/", rootRoute);
 app.use("/api", apiRoute);
 app.use("/customer", customerRoute);

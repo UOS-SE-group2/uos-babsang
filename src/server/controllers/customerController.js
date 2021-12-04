@@ -57,14 +57,17 @@ export const postJoinAsCustomer = (req, res) => {
 
 //마이페이지
 export const customerPage = (req, res) => {
-    id=req.session.user[0].id;
+    const id=req.session.user[0].id;
+    console.log(id);
     db.query('SELECT * FROM user WHERE id= ?',id,function(error,results,fields){
-        if(error) 
-        throw error;
-        else
-        console.log(results);
+        if(error) throw error;
+        console.log(results[0]);
+        const info=JSON.parse(JSON.stringify(results[0]));
+        console.log(info);
+        res.render("customer/profile",{info});
+        
     });
-    res.render("customer/profile",results);
+    
 }
 
 //내정보 수정

@@ -1,0 +1,7 @@
+mixin reviews(review)
+    div.restaurant_review
+        h4=review.name
+        span=review.stars
+        span=review.createdAt
+        div.restaurant_review__description
+            span=review.comment

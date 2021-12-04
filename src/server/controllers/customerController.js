@@ -27,7 +27,7 @@ export const getJoinAsCustomer = (req, res) => res.render("customer/join");
 export const postJoinAsCustomer = (req, res) => {
     const {name, id, pw, pwcheck, email, phone} = req.body;
     
-    if (name && pw && phone) {
+    if (name && id && pw && phone) {
         db.query("SELECT * FROM user WHERE id = ?", [id], function(error, results, fields) {
             if (error) throw error;
             if (results.length <= 0 && pw==pwcheck) {

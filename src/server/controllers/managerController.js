@@ -24,15 +24,41 @@ export const postLoginAsManager = (req, res) => {
         return res.send('<script type="text/javascript">alert("id와 password를 입력하세요!"); document.location.href="/manager/login";</script>');
     }
 }
-
-
-
-
-
-//회원가입
 export const getJoinAsManager = (req, res) => res.render("manager/join");
-//구현해야함
 export const postJoinAsManager = (req, res) => {
+    const {name, id, pw, pwcheck, phone} = req.body;
+    console.log(name, id, pw, phone);
+    if(name && id && pw && phone) {
+        db.query("SELECT restaurantName FROM restaurant WHERE id = ?", [id], function(error, results, fields) {
+            if (error) throw error;
+            if (results.length <= 0 && pw==pwcheck) {
+                db.query('INSERT INTO restaurant (name, id, pw, phone) VALUES(?,?,?,?)', [name, id, pw, phone],
+                function (error, data) {
+                    if (error)
+                    console.log(error);
+                });
+                  return res.send('<script type="text/javascript">alert("매장등록이 완료되었습니다."); document.location.href="/manager/login";</script>');    
+            } else if(pw!=pwcheck){                
+                res.send('<script type="text/javascript">alert("입력된 비밀번호가 서로 다릅니다."); history.back();</script>');    
+            } else {
+                return res.send('<script type="text/javascript">alert("이미 존재하는 아이디 입니다."); history.back();</script>');
+            }            
+        });
+    } else {
+        return res.send('<script type="text/javascript">alert("모든 정보를 입력하세요"); history.back();</script>');    
+    }
+}
+
+
+
+
+
+
+
+export const getAddMenus = (req, res) => {
+
+}
+export const postAddMenus = (req, res) => {
 
 }
 //매니저 홈화면

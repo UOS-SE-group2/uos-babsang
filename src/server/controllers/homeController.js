@@ -11,7 +11,7 @@ export const home = (req, res) => {
 }
 export const getCategory = (req, res) => {
     const categoryId = req.params.id;
-    db.query(`SELECT restaurant.imageurl, restaurant.restaurantName, restaurant.star FROM category INNER JOIN restaurant ON category.categoryId=restaurant.categoryId WHERE category.categoryName=${categoryId}`, function (error, results, fields) {
+    db.query('SELECT imageurl, restaurantName, star FROM restaurant WHERE categoryId=?',[categoryId], function (error, results, fields) {
         if(error) {
             return res.status(400).render("error");
         }

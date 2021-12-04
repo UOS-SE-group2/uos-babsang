@@ -1,0 +1,30 @@
+extends base
+include mixin_main/menuBrief
+include mixin_main/reviews
+
+block content 
+    header 
+        h2=restaurant.restaurantName
+    main
+        .restaurant_description 
+            .restaurant_description__open 
+                span 영업 시간
+                span=restaurant.openTime
+            .restaurant_description__address 
+                span 주소
+                span=restaurant.address
+            .restaurant_description__tel
+                span 매장 번호
+                span=restaurant.phoneNum
+        .restaurant_menus
+            each menu in menus 
+                +menuBrief(menu)
+            else 
+                h4 로딩 실패
+        .restaurant_reviews
+            each review in reviews
+                +reviews(review)
+            else 
+                h4 리뷰가 없습니다.
+
+block script

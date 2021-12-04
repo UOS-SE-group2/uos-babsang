@@ -32,7 +32,16 @@ export const postJoinAsCustomer = (req, res) => {
 }
 
 //마이페이지
-export const customerPage = (req, res) => res.render("customer/profile");
+export const customerPage = (req, res) => {
+    id=req.session.user[0].id;
+    db.query('SELECT * FROM user WHERE id= ?',id,function(error,results,fields){
+        if(error) 
+        throw error;
+        else
+        console.log(results);
+    });
+    res.render("customer/profile",results);
+}
 
 //내정보 수정
 export const getEditCustomer = (req, res) => res.render("customer/editProfile");
@@ -61,6 +70,7 @@ export const postEditCustomer = (req,res)=>{
 
 //주문내역 및 상세
 export const orderhistory = (req, res) => res.render("customer/orderhistory");
+
 export const ordered = (req, res) => res.render("customer/order");
 
 //리뷰 작성

@@ -1,12 +1,54 @@
 import db from "../../db";
+import { restaurant } from "./homeController";
+
+export const getLoginAsManager = (req, res) => {
+    return res.render("login", {title: "매니저 로그인"});
+}
+export const postLoginAsManager = (req, res) => {
+    const {id, pw} = req.body;
+    
+    if (id && pw) {
+
+        db.query('SELECT * FROM restaurant WHERE id=? AND pw = ?', [id, pw], function(error, results, fields) {
+            if (error) throw error;
+            if (results.length > 0) {
+                req.session.loggedIn = true;
+                req.session.who = "manager";
+                req.session.user = results;
+                return res.redirect("/");
+            } else {         
+                return res.status(400).send('<script type="text/javascript">alert("로그인 정보가 일치하지 않습니다."); document.location.href="/manager/login";</script>');    
+            }            
+        });
+    } else {        
+        return res.send('<script type="text/javascript">alert("id와 password를 입력하세요!"); document.location.href="/manager/login";</script>');
+    }
+}
+
 
 //회원가입
 export const getJoinAsManager = (req, res) => res.render("manager/join");
 //구현해야함
-//export const postJoinAsManager = 
+export const postJoinAsManager = (req, res) => {
 
+}
 //매니저 홈화면
-export const managerHome = (req, res) => res.render("manager/home");
+export const managerHome = (req, res) => {
+    const restId = req.session.id;
+    db.query(`SELECT * FROM restaurant WHERE restaurantId=${restId}`, function(error, results, fields) {
+        if(error) {
+            return res.status(400).render("error");
+        }
+        if(results) {
+            const restaurant = results[0];
+        }
+        else {
+            return res.status(404).render("error");
+        }
+    })
+    return res.render("manager/home", restaurant);
+}
+    
 
 //매장정보 수정
 export const getEditManager = (req, res) => res.render("manager/editStore");

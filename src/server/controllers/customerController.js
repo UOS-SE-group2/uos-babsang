@@ -1,4 +1,31 @@
 import db from "../../db";
+
+export const getLoginAsCustomer = (req, res) => {
+    return res.render("login", {title: "고객 로그인"});
+}
+export const postLoginAsCustomer = (req, res) => {
+    const {id, pw} = req.body;
+    
+    if (id && pw) {
+
+        db.query('SELECT * FROM user WHERE id=? AND pw = ?', [id, pw], function(error, results, fields) {
+            if (error) throw error;
+            if (results.length > 0) {
+                req.session.loggedIn = true;
+                req.session.who = "user";
+                req.session.user = results;
+                return res.redirect("/");
+            } else {         
+                return res.status(400).send('<script type="text/javascript">alert("로그인 정보가 일치하지 않습니다."); document.location.href="/customer/login";</script>');    
+            }            
+        });
+    } else {        
+        return res.send('<script type="text/javascript">alert("id와 password를 입력하세요!"); document.location.href="/customer/login";</script>');    
+    }
+}
+
+
+
 //회원가입
 export const getJoinAsCustomer = (req, res) => res.render("customer/join");
 export const postJoinAsCustomer = (req, res) => {

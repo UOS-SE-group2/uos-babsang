@@ -1,3 +1,4 @@
+import { response } from "express";
 import db from "../../db";
 //회원가입
 export const getJoinAsCustomer = (req, res) => res.render("customer/join");
@@ -35,8 +36,28 @@ export const customerPage = (req, res) => res.render("customer/profile");
 
 //내정보 수정
 export const getEditCustomer = (req, res) => res.render("customer/editProfile");
-//구현해야함
-//export const postEditCustomer = 
+
+export const postEditCustomer = (req,res)=>{
+    const {id,name,pw,pwcheck,number,email}=req.body;
+    customerId=req.session.user[0].id;
+
+    if(id && name && pw && number && email){
+        if(pw!=pwcheck){
+            response.send('<script type="text/javascript">alert("입력된 비밀번호가 서로 다릅니다."); document.location.href="/customer/edit";</script>');
+        }else{
+            db.query('UPDATE user SET id = ? , name = ?, pw = ? , phone = ? , email = ? WHERE id= ? ',[id,name,pw,number,email,customerId],function(error,data){
+                if(error){
+                    console.log(error);
+                    throw(error)
+                }else
+                    console.log(data);
+            });
+            response.send('<script type="text/javascript">alert("정보가 수정되었습니다"); document.location.href="/customer/mypage";</script>');
+        }
+    }else{
+        response.send('<script type="text/javascript">alert("모든 정보를 입력하세요"); document.location.href="/customer/edit";</script>');    
+    }
+}
 
 //주문내역 및 상세
 export const orderhistory = (req, res) => res.render("customer/orderhistory");

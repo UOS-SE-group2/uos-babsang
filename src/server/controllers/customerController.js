@@ -96,7 +96,15 @@ export const postEditCustomer = (req,res)=>{
 }
 
 //주문내역 및 상세
-export const orderhistory = (req, res) => res.render("customer/orderhistory");
+export const orderhistory = (req, res) => {
+    const id=req.session.user[0].id;
+    db.query('SELECT restaurant.restaurantName, `order`.time, menu.menuName FROM restaurant inner join `order` on restaurant.restaurantId=`order`.restaurantId inner join menu on `order`.menuId=menu.menuId WHERE `order`.orderId=?',[id],function(error,results,fields){
+        if(error) throw(error);
+        console.log(results);
+        const orders=JSON.parse(JSON.stringify(results));
+        res.render("customer/orderhistory",{orders});
+    });
+}
 
 export const ordered = (req, res) => res.render("customer/order");
 

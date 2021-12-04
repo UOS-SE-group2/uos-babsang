@@ -10,7 +10,7 @@ customerRoute.route("/join").get(getJoinAsCustomer).post(postJoinAsCustomer);
 
 
 customerRoute.get("/mypage", customerPage);
-//customerRoute.route("/edit").get(getEditCustomer).post(postEditCustomer);
+customerRoute.route("/edit").get(getEditCustomer).post(postEditCustomer);
 customerRoute.get("/orderhistory", orderhistory);
 customerRoute.get("orderhistory/:id", ordered);
 //customerRoute.route("orderhistory/:id/posting_review").get(getpostingReview).post(postpostingReview);

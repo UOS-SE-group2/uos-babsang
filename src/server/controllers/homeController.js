@@ -49,7 +49,32 @@ export const search = (req, res) => {
 }
 
 //특정 가게 화면
-export const restaurant = (req, res) => res.render("restaurant");
+export const restaurant = (req, res) => {
+    const id=req.params.id;
+    console.log(id);
+    db.query('SELECT * FROM restaurant WHERE restaurantId= ?', [id], function(error, results, fields){
+        if(error) throw error;
+        
+        if(results){
+            const restaurant=JSON.parse(JSON.stringify(results));
+            db.query('SELECT * FROM menu WHERE restaurantId= ?', [id], function(error, results1, fields){
+                if(error) throw error;
+                if(results1){
+                    const menus=JSON.parse(JSON.stringify(results1));
+                    db.query('SELECT * FROM review WHERE restaurantId= ?', [id], function(error, results2, fields){
+                        if(error) throw error;
+                        const reviews=JSON.parse(JSON.stringify(results2));
+                        res.render("restaurant",[restaurant,menus,reviews]);
+
+                    });
+                }
+
+            });
+
+        }
+    });
+    
+}
 
 export const logout = (req, res) => {
     req.session.destory();

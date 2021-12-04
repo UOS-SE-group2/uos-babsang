@@ -1,7 +1,13 @@
 import express from "express";
-import {customerPage, getEditCustomer, postEditCustomer, orderhistory, ordered, getpostingReview, postpostingReview, reviewList, basket, getPayment, postPayment} from "../controllers/customerController";
+import {customerPage, getEditCustomer, postEditCustomer, orderhistory, ordered, getpostingReview, postpostingReview, reviewList, basket, getPayment, postPayment,getLoginAsCustomer, postLoginAsCustomer, getJoinAsCustomer, postJoinAsCustomer} from "../controllers/customerController";
 
 const customerRoute = express.Router();
+
+customerRoute.route("/login").get(getLoginAsCustomer).post(postLoginAsCustomer);
+customerRoute.route("/join").get(getJoinAsCustomer).post(postJoinAsCustomer);
+
+
+
 
 customerRoute.get("/mypage", customerPage);
 //customerRoute.route("/edit").get(getEditCustomer).post(postEditCustomer);

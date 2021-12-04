@@ -1,35 +1,59 @@
 import { response } from "express";
 import db from "../../db";
-//회원가입
+
+export const getLoginAsCustomer = (req, res) => {
+    return res.render("login", {title: "고객 로그인"});
+}
+export const postLoginAsCustomer = (req, res) => {
+    const {id, pw} = req.body;
+    
+    if (id && pw) {
+
+        db.query('SELECT * FROM user WHERE id=? AND pw = ?', [id, pw], function(error, results, fields) {
+            if (error) throw error;
+            if (results.length > 0) {
+                req.session.loggedIn = true;
+                req.session.who = "user";
+                req.session.user = results;
+                return res.redirect("/");
+            } else {         
+                return res.status(400).send('<script type="text/javascript">alert("로그인 정보가 일치하지 않습니다."); document.location.href="/customer/login";</script>');    
+            }            
+        });
+    } else {        
+        return res.send('<script type="text/javascript">alert("id와 password를 입력하세요!"); document.location.href="/customer/login";</script>');    
+    }
+}
 export const getJoinAsCustomer = (req, res) => res.render("customer/join");
 export const postJoinAsCustomer = (req, res) => {
     const {name, id, pw, pwcheck, email, phone} = req.body;
     
-    if (name && pw && email) {
-        db.query('SELECT * FROM user WHERE name = ? AND id = ? AND pw = ? AND email = ? AND phone = ?', [name, id, pw, email, phone], function(error, results, fields) {
+    if (name && id && pw && phone) {
+        db.query("SELECT * FROM user WHERE id = ?", [id], function(error, results, fields) {
             if (error) throw error;
             if (results.length <= 0 && pw==pwcheck) {
                 db.query('INSERT INTO user (name, id, pw, email, phone) VALUES(?,?,?,?,?)', [name, id, pw, email, phone],
                 function (error, data) {
                     if (error)
                     console.log(error);
-                    else
-                    console.log(data);
                 });
-                  response.send('<script type="text/javascript">alert("회원가입을 환영합니다!"); document.location.href="/";</script>');    
+                  return res.send('<script type="text/javascript">alert("회원가입이 완료되었습니다!"); document.location.href="/customer/login";</script>');    
             } else if(pw!=pwcheck){                
-                response.send('<script type="text/javascript">alert("입력된 비밀번호가 서로 다릅니다."); document.location.href="/join";</script>');    
+                res.send('<script type="text/javascript">alert("입력된 비밀번호가 서로 다릅니다."); history.back();</script>');    
             }
             else {
-                response.send('<script type="text/javascript">alert("이미 존재하는 아이디 입니다."); document.location.href="/join";</script>');    
+                return res.send('<script type="text/javascript">alert("이미 존재하는 아이디 입니다."); history.back();</script>');
             }            
-            response.end();
         });
     } else {
-        response.send('<script type="text/javascript">alert("모든 정보를 입력하세요"); document.location.href="/join";</script>');    
-        response.end();
+        return res.send('<script type="text/javascript">alert("모든 정보를 입력하세요"); history.back();</script>');    
     }
 }
+
+
+
+
+
 
 //마이페이지
 export const customerPage = (req, res) => {

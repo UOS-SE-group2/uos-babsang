@@ -32,6 +32,8 @@ app.use(logger);
 
 
 app.use(localsMiddleware);
+app.use("/dist", express.static("dist"));
+app.use("/images", express.static("/src/server/images"));
 app.use("/", rootRoute);
 app.use("/api", apiRoute);
 app.use("/customer", customerRoute);

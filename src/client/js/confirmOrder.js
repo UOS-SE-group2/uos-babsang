@@ -6,8 +6,8 @@ const {orderId} = orderContainer.dataset;
 
 const handleConfirm = async(event) => {
     const confirm_going = event.target.parentNode;
-    const response = await fetch(`/api/manager/orderlist/${orderId}/confirmed`, {
-        method = "POST"
+    const response = fetch(`/api/manager/orderlist/${orderId}/confirmed`, {
+        method = "POST",
     });
 
     if(response.status === 300) {
@@ -23,8 +23,8 @@ const handleConfirm = async(event) => {
 }
 
 const handleDeny = async(event) => {
-    const response = await fetch(`/api/manager/orderlist/${orderId}/denied`, {
-        method = "POST"
+    fetch(`/api/manager/orderlist/${orderId}/denied`, {
+        method = "POST",
     });
 }
 

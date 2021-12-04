@@ -50,6 +50,7 @@ export const postJoinAsManager = (req, res) => {
 }
 export const managerHome = (req, res) => {
     const restId = req.session.user[0].restaurantId;
+    console.log(req.session.user);
     var restaurant;
     var string;
     var orders;

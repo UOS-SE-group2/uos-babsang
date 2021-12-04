@@ -10,7 +10,7 @@ rootRoute.get("/catagory/:id(^[1-5]$)", getCatagory);
 rootRoute.route("/login").get(getLogin).post(postLogin);
 rootRoute.route("/join_as_customer").get(getJoinAsCustomer).post(postJoinAsCustomer);
 //rootRoute.route("/join_as_manager").get(getJoinAsManager).post(postJoinAsManager);
-rootRoute.get("/search", search);
+rootRoute.post("/search", search);
 rootRoute.get("/restaurant/:id", restaurant);
 
 export default rootRoute;

@@ -4,7 +4,7 @@
   "description": "Software Engineering Project of UOS group 2",
   "scripts": {
     "server": "nodemon --exec babel-node src/init.js",
-    "client": "webpack --mode=development -w"
+    "client": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/UOS-SE-group2/uos-babsang#readme",
   "dependencies": {
+    "babel-loader": "^8.2.3",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "dotenv": "^10.0.0",

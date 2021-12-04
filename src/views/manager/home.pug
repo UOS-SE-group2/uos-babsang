@@ -1,1 +1,23 @@
-h1 Home for manager
+extends base
+include mixin_manager/orderBrief
+include ../mixin_main/menuBrief
+
+block content 
+    header
+        h2=restaurant.restaurantName
+        a(href="/manager/edit") 가게 정보 수정
+        a(href="/logout") 로그아웃
+    
+    main 
+        .sales_brief
+            span 오늘의 매출 : #{todaySales}
+        .order_brief_list 
+            each order in orders 
+                +orderBrief(order)
+            else 
+                h4 들어온 주문이 없어요
+        .restaurant_menu_brief
+            each menu in menus 
+                +menuBrief(menu)
+            else 
+                h4 메뉴를 추가해 주세요

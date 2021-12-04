@@ -1,0 +1,7 @@
+mixin menuBrief(menu)
+    div.restaurant_menu
+        div.restaurant_menu__image
+            img(src=`${menu.imageurl}`)
+        div.restaurant_menu__description
+            span=menu.name
+            span=menu.price

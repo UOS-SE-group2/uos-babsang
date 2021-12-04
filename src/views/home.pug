@@ -1,36 +1,39 @@
+extends base
 include mixin_main/brief_restaurant
 
 block content 
     header 
-        .nav
+        .nav          
+            .search_area 
+                input(type="search", placeholder="매장 검색")
+                button 검색
+
             if loggedIn
+                a(href="/customer/basket")
+                    i.fas.fa-shopping-basket
                 a(href="/customer/mypage") Mypage
                 a(href="/logout") Logout
             else        
                 a(href="/login") Login
                 a(href="/join") Join
-            
-            .search_area 
-                input(type="search", placeholder="매장 검색")
-                button 검색
     main
         .catagory
             a(href="/") 전체
-            a(href="/catagory/1") 한식
-            a(href="/catagory/2") 일식
-            a(href="/catagory/3") 양식
-            a(href="/catagory/4") 중식
-            a(href="/catagory/5") 분식
-            a(href="/catagory/6") 패스트푸드
+            a(href="/category/1") 한식
+            a(href="/category/2") 일식
+            a(href="/category/3") 양식
+            a(href="/category/4") 중식
+            a(href="/category/5") 분식
+            a(href="/category/6") 패스트푸드
 
         .sort
             select(name="sort", id="sort")
                 option(value="original") 기본
                 option(value="stars") 별점순
-                option(value="recent") 최신순
-
         .list_restaurant
             each restaurant in restaurants
                 +brief_restaurant(restaurant)
             else 
                 h3 식당이 존재하지 않습니다😢😢
+
+block script

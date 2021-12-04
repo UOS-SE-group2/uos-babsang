@@ -14,7 +14,7 @@ export const postLoginAsManager = (req, res) => {
             if (results.length > 0) {
                 req.session.loggedIn = true;
                 req.session.who = "manager";
-                req.session.user = results;
+                req.session.user = results[0];
                 return res.redirect("/manager");
             } else {         
                 return res.status(400).send('<script type="text/javascript">alert("로그인 정보가 일치하지 않습니다."); document.location.href="/manager/login";</script>');    
@@ -49,38 +49,27 @@ export const postJoinAsManager = (req, res) => {
     }
 }
 export const managerHome = (req, res) => {
-    const restId = req.session.user[0].restaurantId;
-    console.log(req.session.user);
-    var restaurant;
-    var string;
-    var orders;
-    var menus;
-    db.query('SELECT * FROM restaurant WHERE restaurantId=?', [restId], function(error, results, fields) {
+    const restId = req.session.user.restaurantId;
+    const restaurantName = req.session.user.restaurantName;
+
+    db.query('select restaurant.restaurantName, restaurant.phone, `order`.time, `order`.orderId, menu.menuName, menu.price from restaurant inner join `order` on restaurant.restaurantId=`order`.restaurantId inner join menu on `order`.menuId=menu.menuId where restaurant.restaurantId=?', [restId], function(error, results, fields) {
         if(error) {
             throw error;
         }
         if(results) {
-                restaurant = (JSON.parse(JSON.stringify(results[0])));
-                console.log(restaurant);
-        }
-        else {
+            const orders = (JSON.parse(JSON.stringify(results)));
+            db.query('SELECT * FROM menu WHERE restaurantId=?', [restId], function(error, results2, fields) {
+                if(error) {
+                    throw error;
+                }
+                const menus = (JSON.parse(JSON.stringify(results2)));
+                return res.render("manager/home", {restaurantName, orders, menus});
+            })
+
+        } else {
             return res.status(404).render("error");
         }
-    })
-    // db.query('SELECT * FROM menu WHERE restaurantId=?', [restId], function(error, results, fields) {
-    //     if(error) {
-    //         throw error;
-    //     }
-    //     if(results) {
-    //         const string = JSON.stringify(results);
-    //         menus = JSON.parse(string);
-    //     }
-    //     else {
-    //         return res.status(404).render("error");
-    //     }
-    // })
-    // console.log(menus);
-    return res.render("manager/home", {restaurantName, menus});
+    });
 }
 
 

@@ -1,6 +1,6 @@
 mixin brief_restaurant(restaurant)
     .list_restaurant__list
-        img(src=`${restaurant.imageurl}`)
-        div.list_restaurant__list__text
-            span=restaurant.restaurantName
-            span.list_star #{restaurant.star}
+        a(href=`/restaurant/${restaurant.restaurantId}`)
+            div.list_restaurant__list__text
+                span=restaurant.restaurantName
+                span.list_star #{restaurant.star}

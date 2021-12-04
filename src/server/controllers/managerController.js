@@ -32,7 +32,7 @@ export const postJoinAsManager = (req, res) => {
         db.query("SELECT restaurantName FROM restaurant WHERE id = ?", [id], function(error, results, fields) {
             if (error) throw error;
             if (results.length <= 0 && pw==pwcheck) {
-                db.query('INSERT INTO restaurant (name, id, pw, phone) VALUES(?,?,?,?)', [name, id, pw, phone],
+                db.query('INSERT INTO restaurant (restaurantName, id, pw, phone) VALUES(?,?,?,?)', [name, id, pw, phone],
                 function (error, data) {
                     if (error)
                     console.log(error);
@@ -48,7 +48,39 @@ export const postJoinAsManager = (req, res) => {
         return res.send('<script type="text/javascript">alert("모든 정보를 입력하세요"); history.back();</script>');    
     }
 }
-
+export const managerHome = (req, res) => {
+    const restId = req.session.user[0].restaurantId;
+    var restaurant;
+    var string;
+    var orders;
+    var menus;
+    db.query('SELECT * FROM restaurant WHERE restaurantId=?', [restId], function(error, results, fields) {
+        if(error) {
+            throw error;
+        }
+        if(results) {
+                restaurant = (JSON.parse(JSON.stringify(results[0])));
+                console.log(restaurant);
+        }
+        else {
+            return res.status(404).render("error");
+        }
+    })
+    // db.query('SELECT * FROM menu WHERE restaurantId=?', [restId], function(error, results, fields) {
+    //     if(error) {
+    //         throw error;
+    //     }
+    //     if(results) {
+    //         const string = JSON.stringify(results);
+    //         menus = JSON.parse(string);
+    //     }
+    //     else {
+    //         return res.status(404).render("error");
+    //     }
+    // })
+    // console.log(menus);
+    return res.render("manager/home", {restaurantName, menus});
+}
 
 
 
@@ -60,24 +92,7 @@ export const getAddMenus = (req, res) => {
 }
 export const postAddMenus = (req, res) => {
 
-}
-//매니저 홈화면
-export const managerHome = (req, res) => {
-    const restId = req.session.id;
-    db.query(`SELECT * FROM restaurant WHERE restaurantId=${restId}`, function(error, results, fields) {
-        if(error) {
-            return res.status(400).render("error");
-        }
-        if(results) {
-            const restaurant = results[0];
-        }
-        else {
-            return res.status(404).render("error");
-        }
-    })
-    return res.render("manager/home", restaurant);
-}
-    
+}   
 
 //매장정보 수정
 export const getEditManager = (req, res) => res.render("manager/editStore");

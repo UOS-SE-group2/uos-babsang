@@ -15,7 +15,7 @@ export const postLoginAsManager = (req, res) => {
                 req.session.loggedIn = true;
                 req.session.who = "manager";
                 req.session.user = results;
-                return res.redirect("/");
+                return res.redirect("/manager");
             } else {         
                 return res.status(400).send('<script type="text/javascript">alert("로그인 정보가 일치하지 않습니다."); document.location.href="/manager/login";</script>');    
             }            
@@ -24,6 +24,9 @@ export const postLoginAsManager = (req, res) => {
         return res.send('<script type="text/javascript">alert("id와 password를 입력하세요!"); document.location.href="/manager/login";</script>');
     }
 }
+
+
+
 
 
 //회원가입

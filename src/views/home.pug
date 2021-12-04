@@ -16,6 +16,11 @@ block content
             else        
                 a(href="/login") Login
                 a(href="/join") Join
+            
+            .search_area 
+                form(action="/search",method="POST")
+                    input(type="search", name="restaurantName", placeholder="매장 검색")
+                    button(type="submit") 검색 
     main
         .catagory
             a(href="/") 전체
@@ -30,6 +35,12 @@ block content
             select(name="sort", id="sort")
                 option(value="original") 기본
                 option(value="stars") 별점순
+                option(value="recent") 최신순
+            .basket
+                if loggedIn
+                    a(href="/basket") 장바구니
+                    
+
         .list_restaurant
             each restaurant in restaurants
                 +brief_restaurant(restaurant)

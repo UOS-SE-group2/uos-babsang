@@ -11,8 +11,9 @@ block content
                 a(href="/join") Join
             
             .search_area 
-                input(type="search", placeholder="매장 검색")
-                button 검색
+                form(action="/search",method="POST")
+                    input(type="search", name="restaurantName", placeholder="매장 검색")
+                    button(type="submit") 검색 
     main
         .catagory
             a(href="/") 전체
@@ -28,6 +29,10 @@ block content
                 option(value="original") 기본
                 option(value="stars") 별점순
                 option(value="recent") 최신순
+            .basket
+                if loggedIn
+                    a(href="/basket") 장바구니
+                    
 
         .list_restaurant
             each restaurant in restaurants

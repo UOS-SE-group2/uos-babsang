@@ -29,22 +29,19 @@ export const getJoin = (req, res) => res.render("join_select");
 //검색된 화면
 export const search = (req, res) => {
     const {restaurantName}=req.body;
-    console.log(restaurantName);
     if (restaurantName) {
 
         db.query('SELECT * FROM restaurant WHERE restaurantName= ?', [restaurantName], function(error, results, fields) {
             if (error) throw error;
             if (results.length > 0) {
-                const restaurantId=results[0].restaurantId;
-                console.log(restaurantId);
-                res.render("restaurant",{restaurantId});
+                const restaurantId = results[0].restaurantId;
+                res.redirect(`/restaurant/${restaurantId}`);
             } else {         
-                res.status(400).send('<script type="text/javascript">alert("검색 정보가 없습니다."); document.location.href="/";</script>');    
+                return res.status(400).send('<script type="text/javascript">alert("검색 정보가 없습니다."); document.location.href="/";</script>');    
             }            
         });
     } else {        
-        res.send('<script type="text/javascript">alert("검색어를 입력하세요!"); document.location.href="/";</script>');    
-        res.redirect("/");
+        return res.send('<script type="text/javascript">alert("검색어를 입력하세요!"); document.location.href="/";</script>');    
     }
     
 }

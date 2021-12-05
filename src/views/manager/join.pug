@@ -2,12 +2,17 @@ extends ../base
 
 block content
     header
-        h2 UOS TABLE 매니저 회원가입
-    main
-        form(method="POST").signup_form__manager
-            input(type="text", name="id", required, maxlength="20", placeholder="ID")
-            input(type="password", name="pw", required, maxlength="20", placeholder="비밀번호")
-            input(type="password", name="pwcheck", required, maxlength="20", placeholder="비밀번호 확인")
-            input(type="text", name="name", required, maxlength="20", placeholder="매장명")
-            input(type="tel", name="phone", required, maxlength="12", placeholder="매장전화")
-            input(type="submit", value="매장 등록")
+        include ../partial/logo
+        a(href="/")
+            h1 UOS TABLE
+        include ../partial/authentication
+    main.join
+        .join_form__manager
+            h3 매니저 회원가입
+            form(method="POST")
+                input(type="text", name="id", required, maxlength="20", placeholder="ID")
+                input(type="password", name="pw", required, maxlength="20", placeholder="비밀번호")
+                input(type="password", name="pwcheck", required, maxlength="20", placeholder="비밀번호 확인")
+                input(type="text", name="name", required, maxlength="20", placeholder="매장명")
+                input(type="tel", name="phone", required, maxlength="12", placeholder="매장전화")
+                input(type="submit", value="매장 등록")

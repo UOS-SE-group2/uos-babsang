@@ -1,21 +1,27 @@
-.login {
+.login,
+.join {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
+.login h3 {
+    font-size: 32px;
+}
 .login_select_box {
     display: grid;
     grid-template-rows: 1fr 1fr;
-    gap: 20px;
-    min-width: 200px;
-    min-height: 120px;
+    gap: 10px;
+    min-width: 230px;
+    min-height: 150px;
+    margin-top: 20px;
 }
 .login_asUser,
 .login_asRestaurant {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
     padding: 7px;
     width: 100%;
     height: 100%;

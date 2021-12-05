@@ -2,13 +2,18 @@ extends ../base
 
 block content
     header
-        h2 UOS TABLE 고객 회원가입
-    main
-        form(method="POST").signup_form__customer
-            input(type="text", name="id", required, maxlength="20", placeholder="ID")
-            input(type="password", name="pw", required, maxlength="20", placeholder="비밀번호")
-            input(type="password", name="pwcheck", required, maxlength="20", placeholder="비밀번호 확인")
-            input(type="text", name="name", required, maxlength="20", placeholder="이름")
-            input(type="tel", name="phone", required, maxlength="12", placeholder="휴대전화")
-            input(type="email", name="email", placeholder="이메일")
-            input(type="submit", value="회원가입")
+        include ../partial/logo
+        a(href="/")
+            h1 UOS TABLE
+        include ../partial/authentication
+    main.join 
+        .join_form__customer
+            h3 고객 회원가입
+            form(method="POST")
+                input(type="text", name="id", required, maxlength="20", placeholder="ID")
+                input(type="password", name="pw", required, maxlength="20", placeholder="비밀번호")
+                input(type="password", name="pwcheck", required, maxlength="20", placeholder="비밀번호 확인")
+                input(type="text", name="name", required, maxlength="20", placeholder="이름")
+                input(type="tel", name="phone", required, maxlength="12", placeholder="휴대전화")
+                input(type="email", name="email", placeholder="이메일")
+                input(type="submit", value="회원가입")

@@ -3,11 +3,13 @@ extends base
 block content
     header
         include partial/logo
-        h1 UOS TABLE
+        a(href="/")
+            h1 UOS TABLE
         include partial/authentication
     aside
         include partial/categorybar
     main.login
+        h3 로그인
         .login_select_box
             .login_asUser 
                 a(href="/customer/login") 고객 로그인

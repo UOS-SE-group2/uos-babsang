@@ -3,11 +3,9 @@ extends base
 block content
     header
         include partial/logo
-        h1 UOS TABLE
+        a(href="/")
+            h1 UOS TABLE
         include partial/authentication
-    
-    aside
-        include partial/categorybar
 
     main.login
         .login_form
@@ -20,4 +18,7 @@ block content
                 else 
                     input(type="submit", value="로그인").manager_login
         div.login__create_account 
-                a(href="/join") 회원가입
+            if what == "user"
+                a(href="/customer/join") 고객 회원가입
+            else
+                a(href="/manager/join") 매니저 회원가입

@@ -1,5 +1,5 @@
 import express from "express";
-import {customerPage, getEditCustomer, postEditCustomer, orderHistory, ordered, reviewList, basket,getLoginAsCustomer, postLoginAsCustomer, getJoinAsCustomer, postJoinAsCustomer, getAddReview, postAddReview} from "../controllers/customerController";
+import {customerPage, getEditCustomer, postEditCustomer, orderHistory, ordered, reviewList, basketList,getLoginAsCustomer, postLoginAsCustomer, getJoinAsCustomer, postJoinAsCustomer, getAddReview, postAddReview} from "../controllers/customerController";
 
 const customerRoute = express.Router();
 
@@ -15,7 +15,7 @@ customerRoute.get("/orderhistory/:orderId", ordered);
 
 
 
-customerRoute.get("/basket", basket);
+customerRoute.get("/basket", basketList);
 //customerRoute.route("/:id/basket/:id/payment").get(getPayment).post(postPayment);
 //리뷰 상세보기 및 수정기능도 추가할거면
 //customerRoute.get("/myreviews/:id");

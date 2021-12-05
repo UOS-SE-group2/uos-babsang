@@ -1,0 +1,22 @@
+doctype html 
+html(lang="ko")
+    head
+        title Profile 
+    
+    body
+        header 
+            main
+                .menubar
+                    a(href="/customer/mypage") 내정보
+                    a(href="/customer/orderhistory") 주문내역
+                    a(href="/customer/myreviews") 리뷰조회
+            block content
+                h1 주문상세내역
+                    ul 
+                        li 주문가게 : #{order.restaurantName}
+                        li 주문메뉴 : #{order.menuName}
+                        li 결제금액 : #{order.price}
+                        li 주문시간 : #{order.time}
+                        li 주문가게 전화번호 : #{order.phone}
+                        li 주문가게 주소 : #{order.address}
+            a(href="/customer/edit") 내정보 수정

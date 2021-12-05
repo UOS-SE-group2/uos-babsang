@@ -106,7 +106,15 @@ export const orderhistory = (req, res) => {
     });
 }
 
-export const ordered = (req, res) => res.render("customer/order");
+export const ordered = (req, res) => {
+    const orderId=req.session.user.orderId;
+    db.query('SELECT restaurant.restaurantName, menu.menuName, menu.price,`order`.time, restaurant.phone, restaurant.address FROM restaurant inner join `order` on restaurant.restaurantId=`order`.restaurantId inner join menu on `order`.menuId=menu.menuId WHERE order.orderId = ? ', [orderId], function(error, results, fields){
+        if(error) throw error;
+        console.log(results);
+        const order=JSON.parse(JSON.stringify(results));
+        res.render("customer/order",{order});
+    });
+}
 
 //리뷰 작성
 export const getpostingReview = (req, res) => res.render("customer/reviewing");

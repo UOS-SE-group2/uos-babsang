@@ -1,11 +1,12 @@
 import db from "../../db";
 
 export const home = (req, res) => {
-    db.query("SELECT imageurl, restaurantName, star FROM restaurant", function(error, results, fields) {
+    db.query("SELECT restaurantName, restaurantId, star FROM restaurant", function(error, results, fields) {
         if(error) {
             return res.status(400).render("error");
         }
-        const restaurants = results;
+        const restaurants = JSON.parse(JSON.stringify(results));
+        console.log(restaurants);
         return res.render("home", {restaurants, catagoryId: 0});
     })
 }
@@ -57,6 +58,7 @@ export const restaurant = (req, res) => {
         
         if(results){
             const restaurant=JSON.parse(JSON.stringify(results));
+            console.log(restaurant);
             db.query('SELECT * FROM menu WHERE restaurantId= ?', [id], function(error, results1, fields){
                 if(error) throw error;
                 if(results1){
@@ -64,7 +66,7 @@ export const restaurant = (req, res) => {
                     db.query('SELECT * FROM review WHERE restaurantId= ?', [id], function(error, results2, fields){
                         if(error) throw error;
                         const reviews=JSON.parse(JSON.stringify(results2));
-                        res.render("restaurant",[restaurant,menus,reviews]);
+                        res.render("restaurant",{restaurant,menus,reviews});
 
                     });
                 }

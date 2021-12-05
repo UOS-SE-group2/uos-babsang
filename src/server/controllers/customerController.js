@@ -103,13 +103,31 @@ export const orderhistory = (req, res) => {
 export const ordered = (req, res) => res.render("customer/order");
 
 //리뷰 작성
-//export const getpostingReview = (req, res) => res.render("customer/reviewing");
+export const getpostingReview = (req, res) => res.render("customer/reviewing");
 //구현해야함
-export const postpostingReview = (req,res) => res.render("customer/reviewing");
+export const postpostingReview = (req,res) => {
+    const {stars,review}=req.body;
 
+    if(stars && review){
+        db.query('INSERT INTO review (stars,review) VALUES(?,?)', [stars,review],function(error, result) {
+            if(error) throw error;
+            req.session.review = result[0];
+        })
+        res.send('<script type="text/javascript">alert("리뷰 등록이 완료되었습니다!"); document.location.href="/customer/reviewList";</script>');
+    
+    } else {
+        res.send('<script type="text/javascript">alert("리뷰 내용을 작성해주세요."); history.back();</script>');    
+    }
+}
 
 //리뷰 작성내역
-export const reviewList = (req, res) => res.render("customer/reviewList");
+export const reviewList = (req, res) => {
+    const id=req.session.review[0].id;
+    db.query('SELECT review',[id],function(error,result){
+        if(error) throw(error);
+        res.render("customer/reviewList",{review});
+    });
+}
 
 //장바구니
 export const basket = (req, res) => res.render("customer/basket");

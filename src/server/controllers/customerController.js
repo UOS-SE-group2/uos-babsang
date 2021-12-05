@@ -94,7 +94,7 @@ export const orderHistory = (req, res) => {
 }
 export const ordered = (req, res) => {
     const orderId = req.params.orderId;
-    db.query('SELECT restaurant.restaurantName, menu.menuName, menu.price,`order`.time, restaurant.phone, restaurant.address FROM restaurant inner join `order` on restaurant.restaurantId=`order`.restaurantId inner join menu on `order`.menuId=menu.menuId WHERE order.orderId = ? ', [orderId], function(error, results, fields){
+    db.query('SELECT `order`.orderId, restaurant.restaurantName, menu.menuName, menu.price,`order`.time, restaurant.phone, restaurant.address FROM restaurant inner join `order` on restaurant.restaurantId=`order`.restaurantId inner join menu on `order`.menuId=menu.menuId WHERE order.orderId = ? ', [orderId], function(error, results, fields){
         if(error) throw error;
         const order=JSON.parse(JSON.stringify(results[0]));
         console.log(order);

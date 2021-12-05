@@ -1,11 +1,12 @@
 mixin review(review)
     div.restaurant_review
-        h4=review.name
-        span=review.stars
-        span=review.createdAt
-        div.restaurant_review__description
-            span=review.comment
+        ul 
+            li 작성자 : #{review.name}
+            li 별점 : #{review.stars}
+            li 생성일 : #{review.createdAt}
+            li 작성 내용: #{review.comment}
         
         if who === "user"
-            a(href=`/api/customer/myreviews/${review.reviewId}`)
-                button 리뷰 삭제
+            .restaurant_review__bottom
+                a(href=`/api/customer/myreviews/${review.reviewId}`)
+                    button 리뷰 삭제

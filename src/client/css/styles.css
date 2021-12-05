@@ -7,6 +7,7 @@
 @import "./customer/profile.css";
 @import "./customer/orderhistory.css";
 @import "./customer/order.css";
+@import "./customer/review.css";
 
 header {
     display: grid;

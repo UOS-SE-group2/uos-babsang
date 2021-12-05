@@ -297,9 +297,6 @@ edit_form__customer h3 {
     text-align: center;
     padding: 5px;
 }
-.takenOrderDetail a {
-    grid-row: 1/2;
-}
 .takenOrderDetail {
     display: flex;
     flex-direction: column;
@@ -351,6 +348,38 @@ edit_form__customer h3 {
     margin-bottom: 15px;
 }
 .orderDetail__link {
+    text-align: right;
+}
+/*!**************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/css/customer/review.css ***!
+  \**************************************************************************************/
+.review_list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 2fr auto;
+    gap: 8px;
+}
+.review_list h3 {
+    grid-column: 1/3;
+    text-align: center;
+    padding: 5px;
+}
+.restaurant_review {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid black;
+}
+.restaurant_review ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+.restaurant_review__bottom {
     text-align: right;
 }
 /*!*********************************************************************************!*\

@@ -54,8 +54,7 @@ export const restaurant = (req, res) => {
         if(error) throw error;
         
         if(results){
-            const restaurant=JSON.parse(JSON.stringify(results));
-            console.log(restaurant);
+            const restaurant=JSON.parse(JSON.stringify(results[0]));
             db.query('SELECT * FROM menu WHERE restaurantId= ?', [id], function(error, results1, fields){
                 if(error) throw error;
                 if(results1){
@@ -63,6 +62,7 @@ export const restaurant = (req, res) => {
                     db.query('SELECT * FROM review WHERE restaurantId= ?', [id], function(error, results2, fields){
                         if(error) throw error;
                         const reviews=JSON.parse(JSON.stringify(results2));
+                        console.log(reviews);
                         res.render("restaurant",{restaurant,menus,reviews});
 
                     });

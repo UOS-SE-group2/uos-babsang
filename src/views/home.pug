@@ -5,8 +5,9 @@ block content
     header 
         .nav          
             .search_area 
-                input(type="search", placeholder="매장 검색")
-                button 검색
+                form(action="/search",method="POST")
+                    input(type="search", name="restaurantName", placeholder="매장 검색")
+                    input(type="submit", value="검색")
 
             if loggedIn
                 a(href="/customer/basket")
@@ -17,10 +18,7 @@ block content
                 a(href="/login") Login
                 a(href="/join") Join
             
-            .search_area 
-                form(action="/search",method="POST")
-                    input(type="search", name="restaurantName", placeholder="매장 검색")
-                    input(type="submit", value="검색")
+
     main
         .catagory
             a(href="/") 전체

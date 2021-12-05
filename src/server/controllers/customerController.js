@@ -42,9 +42,10 @@ export const orderhistory = (req, res) => res.render("customer/orderhistory");
 export const ordered = (req, res) => res.render("customer/order");
 
 //리뷰 작성
-export const getpostingReview = (req, res) => res.render("customer/reviewing");
+//export const getpostingReview = (req, res) => res.render("customer/reviewing");
 //구현해야함
-//export const postpostingReview =
+export const postpostingReview = (req,res) => res.render("customer/reviewing");
+
 
 //리뷰 작성내역
 export const reviewList = (req, res) => res.render("customer/reviewList");

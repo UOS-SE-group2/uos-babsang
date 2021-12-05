@@ -13,8 +13,7 @@ html(lang="ko")
             block content
                 h1 개인정보
                     ul 
-                        li 이름 : #{info.name}
-                        li 비밀번호 : #{info.pw}
-                        li 전화번호 : #{info.phone}
-                        li 이메일 : #{info.email}
+                        li 이름 : #{user.name}
+                        li 전화번호 : #{user.phone}
+                        li 이메일 : #{user.email}
             a(href="/customer/edit") 내정보 수정

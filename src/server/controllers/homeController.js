@@ -56,18 +56,14 @@ export const restaurant = (req, res) => {
                         if(error) throw error;
                         const reviews=JSON.parse(JSON.stringify(results2));
                         res.render("restaurant",{restaurant,menus,reviews});
-
                     });
                 }
-
             });
-
         }
     });
-    
 }
 
 export const logout = (req, res) => {
-    req.session.destory();
+    req.session.destroy();
     return res.redirect("/");
 }

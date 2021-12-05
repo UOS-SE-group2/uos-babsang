@@ -23,10 +23,6 @@ export const getCategory = (req, res) => {
 export const getLogin = (req, res) => res.render("login_select");
 export const getJoin = (req, res) => res.render("join_select");
 
-
-
-
-//검색된 화면
 export const search = (req, res) => {
     const {restaurantName}=req.body;
     if (restaurantName) {
@@ -46,7 +42,6 @@ export const search = (req, res) => {
     
 }
 
-//특정 가게 화면
 export const restaurant = (req, res) => {
     const id=req.params.id;
     console.log(id);

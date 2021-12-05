@@ -1,5 +1,6 @@
 .login,
-.join {
+.join,
+.editProfile {
     display: flex;
     align-items: center;
     justify-content: center;

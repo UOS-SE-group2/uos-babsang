@@ -1,0 +1,60 @@
+.profile {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 50px 50px auto;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 5px;
+}
+
+.profile h3 {
+    grid-column: 1/4;
+    grid-row: 1/2;
+}
+.profile_orderlist__btn,
+.profile_reviews__btn,
+.profile_orderlist__editprofile {
+    background-color: rgb(242,216,119);
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.profile_orderlist__btn {
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+.profile_reviews__btn {
+    grid-column: 2/3;
+    grid-row: 2/3;
+}
+.profile_orderlist__editprofile {
+    grid-column: 3/4;
+    grid-row: 2/3;
+}
+.profile_detail {
+    grid-column: 1/4;
+    grid-row: 3/4;
+    padding-left: 10%;
+    text-align: left;
+}
+.profile_detail ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile_orderlist__btn i,
+.profile_reviews__btn i,
+.profile_orderlist__editprofile i {
+    padding-right: 8px;
+}
+.edit_form__customer form input:last-child {
+    background-color: rgb(114, 97, 67);
+    border: none;
+    border-radius: 5px;
+}

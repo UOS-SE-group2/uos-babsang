@@ -58,8 +58,10 @@ a {
 	color: black;
 }
 aside {
-	padding: 5px;
-	margin: 5px 10px;
+	padding-top: 2px;
+	padding-bottom: 12px;
+	margin: 10px 10px;
+	border-bottom: 1px solid rgb(114, 97, 67);
 }
 body {
 	font-family: 'Nanum Gothic', sans-serif;
@@ -121,7 +123,8 @@ h3 {
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/css/home/login_select.css ***!
   \****************************************************************************************/
 .login,
-.join {
+.join,
+.editProfile {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -164,7 +167,8 @@ h3 {
   \*********************************************************************************/
 .login_form,
 .join_form__manager,
-.join_form__customer {
+.join_form__customer,
+.edit_form__customer {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -176,14 +180,16 @@ h3 {
 }
 .login_form h3,
 .join_form__manager h3,
-.join_form__customer h3 {
+.join_form__customer h3,
+edit_form__customer h3 {
     padding: 15px 7px;
     margin-bottom: 15px;
     border-radius: 5px;
 }
 .login_form form,
 .join_form__manager form,
-.join_form__customer form {
+.join_form__customer form,
+.edit_form__customer form {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -192,7 +198,8 @@ h3 {
 }
 .login_form form input,
 .join_form__manager form input,
-.join_form__customer form input {
+.join_form__customer form input,
+.edit_form__customer form input {
     height: 30px;
     padding: 5px 10px;
 }
@@ -216,6 +223,69 @@ h3 {
     font-size: 14px;
     color: rgb(150, 150, 150);
 }
+/*!***************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/css/customer/profile.css ***!
+  \***************************************************************************************/
+.profile {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 50px 50px auto;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 5px;
+}
+
+.profile h3 {
+    grid-column: 1/4;
+    grid-row: 1/2;
+}
+.profile_orderlist__btn,
+.profile_reviews__btn,
+.profile_orderlist__editprofile {
+    background-color: rgb(242,216,119);
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.profile_orderlist__btn {
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+.profile_reviews__btn {
+    grid-column: 2/3;
+    grid-row: 2/3;
+}
+.profile_orderlist__editprofile {
+    grid-column: 3/4;
+    grid-row: 2/3;
+}
+.profile_detail {
+    grid-column: 1/4;
+    grid-row: 3/4;
+    padding-left: 10%;
+    text-align: left;
+}
+.profile_detail ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile_orderlist__btn i,
+.profile_reviews__btn i,
+.profile_orderlist__editprofile i {
+    padding-right: 8px;
+}
+.edit_form__customer form input:last-child {
+    background-color: rgb(114, 97, 67);
+    border: none;
+    border-radius: 5px;
+}
 /*!*********************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/css/styles.css (1) ***!
   \*********************************************************************************/
@@ -225,6 +295,8 @@ header {
     margin: 10px 15px;
     align-items: center;
     height: 50px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgb(114, 97, 67);
 }
 .logo_wrapper a img {
     width: 60px;

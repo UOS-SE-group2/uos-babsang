@@ -4,6 +4,7 @@
 @import "./home/home.css";
 @import "./home/login_select.css";
 @import "./home/login.css";
+@import "./customer/profile.css";
 
 header {
     display: grid;
@@ -11,6 +12,8 @@ header {
     margin: 10px 15px;
     align-items: center;
     height: 50px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgb(114, 97, 67);
 }
 .logo_wrapper a img {
     width: 60px;

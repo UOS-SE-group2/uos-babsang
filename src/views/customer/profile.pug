@@ -2,14 +2,28 @@ extends ../base
 
 block content
     header 
-        h2 마이페이지 
-        .menubar
-            a(href="/customer/mypage") 내정보
-            a(href="/customer/orderhistory") 주문내역
-            a(href="/customer/myreviews") 리뷰조회
-    main
-        ul 
-            li 이름 : #{user.name}
-            li 전화번호 : #{user.phone}
-            li 이메일 : #{user.email}
-        a(href="/customer/edit") 내정보 수정 
+        include ../partial/logo
+        a(href="/")
+            h1 UOS TABLE
+        include ../partial/authentication 
+        
+            
+    main.profile
+        h3 마이페이지
+        div.profile_orderlist__btn
+            a(href="/customer/orderhistory")
+                i.fas.fa-receipt
+                span 주문내역
+        div.profile_reviews__btn
+            a(href="/customer/myreviews")
+                i.fas.fa-comment-dots
+                span 리뷰조회
+        div.profile_orderlist__editprofile
+            a(href="/customer/edit")
+                i.fas.fa-id-badge
+                span 내정보 수정 
+        div.profile_detail
+            ul 
+                li 이름 : #{user.name}
+                li 전화번호 : #{user.phone}
+                li 이메일 : #{user.email}

@@ -1,10 +1,14 @@
-doctype html 
-html(lang="ko")
-    head 
-        title EditProfile 
-    body
-        header 
-            h1 개인정보수정
+extends ../base
+
+block content
+    header
+        include ../partial/logo
+        a(href="/")
+            h1 UOS TABLE
+        include ../partial/authentication
+    main.editProfile
+        .edit_form__customer
+            h3 개인정보 수정
             form(method="POST")
                 input(type="text", name="name", required, placeholder="이름", value=user.name)
                 input(type="password", name="pw", required, placeholder="비밀번호")

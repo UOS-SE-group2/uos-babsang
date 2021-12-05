@@ -6,7 +6,6 @@ export const home = (req, res) => {
             return res.status(400).render("error");
         }
         const restaurants = JSON.parse(JSON.stringify(results));
-        console.log(restaurants);
         return res.render("home", {restaurants, catagoryId: 0});
     })
 }
@@ -44,7 +43,6 @@ export const search = (req, res) => {
 
 export const restaurant = (req, res) => {
     const id=req.params.id;
-    console.log(id);
     db.query('SELECT * FROM restaurant WHERE restaurantId= ?', [id], function(error, results, fields){
         if(error) throw error;
         
@@ -54,10 +52,9 @@ export const restaurant = (req, res) => {
                 if(error) throw error;
                 if(results1){
                     const menus=JSON.parse(JSON.stringify(results1));
-                    db.query('SELECT * FROM review WHERE restaurantId= ?', [id], function(error, results2, fields){
+                    db.query('SELECT review.stars, review.createdAt, review.comment, user.name FROM review, user WHERE user.userId = review.userId AND restaurantId= ?', [id], function(error, results2, fields){
                         if(error) throw error;
                         const reviews=JSON.parse(JSON.stringify(results2));
-                        console.log(reviews);
                         res.render("restaurant",{restaurant,menus,reviews});
 
                     });

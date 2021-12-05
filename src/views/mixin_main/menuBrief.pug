@@ -3,3 +3,5 @@ mixin menuBrief(menu)
         span=menu.menuName
         span=menu.info
         span=menu.price
+        a(href=`/api/restaurant/${menu.restaurantId}/${menu.menuId}`)
+            button(value="장바구니 담기")

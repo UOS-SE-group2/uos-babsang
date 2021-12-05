@@ -1,4 +1,3 @@
-import { response } from "express";
 import db from "../../db";
 
 export const getLoginAsCustomer = (req, res) => {
@@ -82,52 +81,51 @@ export const postEditCustomer = (req, res) => {
         res.send('<script type="text/javascript">alert("모든 정보를 입력하세요"); history.back();</script>');    
     }
 }
-
-
-
-
-
-
-
-//주문내역 및 상세
-export const orderhistory = (req, res) => {
-    const id=req.session.user[0].id;
-    db.query('SELECT restaurant.restaurantName, `order`.time, menu.menuName FROM restaurant inner join `order` on restaurant.restaurantId=`order`.restaurantId inner join menu on `order`.menuId=menu.menuId WHERE `order`.orderId=?',[id],function(error,results,fields){
+export const orderHistory = (req, res) => {
+    const userId=req.session.user.userId;
+    db.query('SELECT order.orderId, restaurant.restaurantName, `order`.time, menu.menuName, `order`.quantity, `order`.isConfirmed FROM (`order` INNER JOIN user ON `order`.userId = user.userId), restaurant, menu WHERE user.userId = ? AND `order`.restaurantId = restaurant.restaurantId AND `order`.menuId = menu.menuId',[userId],function(error,results,fields){
         if(error) throw(error);
-        console.log(results);
         const orders=JSON.parse(JSON.stringify(results));
+        console.log(orders);
         res.render("customer/orderhistory",{orders});
     });
 }
 
-export const ordered = (req, res) => res.render("customer/order");
-
-//리뷰 작성
-export const getpostingReview = (req, res) => res.render("customer/reviewing");
-//구현해야함
-export const postpostingReview = (req,res) => {
-    const {stars,review}=req.body;
-
-    if(stars && review){
-        db.query('INSERT INTO review (stars,review) VALUES(?,?)', [stars,review],function(error, result) {
-            if(error) throw error;
-            req.session.review = result[0];
-        })
-        res.send('<script type="text/javascript">alert("리뷰 등록이 완료되었습니다!"); document.location.href="/customer/reviewList";</script>');
-    
-    } else {
-        res.send('<script type="text/javascript">alert("리뷰 내용을 작성해주세요."); history.back();</script>');    
-    }
-}
-
-//리뷰 작성내역
 export const reviewList = (req, res) => {
-    const id=req.session.review[0].id;
-    db.query('SELECT review',[id],function(error,result){
+    const userId = req.session.user.userId;
+    db.query('SELECT review.reviewId, review.stars, review.createdAt, review.comment, user.name FROM review, user WHERE user.userId = review.userId AND user.userId=?',[userId], function (error,result) {
         if(error) throw(error);
-        res.render("customer/reviewList",{review});
+        const reviews = JSON.parse(JSON.stringify(result));
+        console.log(reviews);
+        res.render("customer/reviewList",{reviews});
     });
 }
+export const getAddReview = (req, res) => res.render("customer/addReview");
+export const postAddReview = (req,res) => {
+    const {stars, comment} = req.body;
+    if(stars && comment){
+        db.query('INSERT INTO review (stars,comment) VALUES (?,?)', [stars, comment], function(error, result) {
+            if(error) throw error;
+            return res.send('<script type="text/javascript">alert("리뷰 등록이 완료되었습니다!"); document.location.href="/customer/myreviews";</script>');
+        });
+    } else {
+        return res.send('<script type="text/javascript">alert("리뷰 내용을 작성해주세요."); history.back();</script>');    
+    }
+}
+export const deleteReview = (req, res) => {
+    const reviewId = req.params.reviewId;
+    db.query("DELETE FROM review WHERE review.reviewId = ?", [reviewId], function(error) {
+        if(error) throw error;
+    });
+    return res.redirect("/customer/myreviews");
+}
+
+
+
+
+//구현 예정(건중님)
+export const ordered = (req, res) => res.render("customer/order");
+
 
 //장바구니
 export const basket = (req, res) => res.render("customer/basket");

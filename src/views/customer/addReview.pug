@@ -1,0 +1,16 @@
+extends ../base
+    
+block content
+    header
+        h1 리뷰 작성
+
+    main 
+        form(method="POST").review_form
+            .review_rating
+                span 별점을 선택해주세요
+                span ★ ★ ★ ★ ★
+                input(type="range", step="1", min="0", max="5", name="stars")
+ 
+            .review_contents
+                textarea(cols="30" rows="10", name="comment", placeholder="후기를 작성해주세요.")
+            input(type="submit", value="등록")

@@ -1,0 +1,11 @@
+mixin review(review)
+    div.restaurant_review
+        h4=review.name
+        span=review.stars
+        span=review.createdAt
+        div.restaurant_review__description
+            span=review.comment
+        
+        if who === "user"
+            a(href=`/api/customer/myreviews/${review.reviewId}`)
+                button 리뷰 삭제

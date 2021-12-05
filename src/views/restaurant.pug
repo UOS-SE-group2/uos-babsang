@@ -1,6 +1,6 @@
 extends base
 include mixin_main/menuBrief
-include mixin_main/reviews
+include mixin_main/review
 
 block content 
     header 
@@ -23,7 +23,7 @@ block content
                 h4 로딩 실패
         .restaurant_reviews
             each review in reviews
-                +reviews(review)
+                +review(review)
             else 
                 h4 리뷰가 없습니다.
 

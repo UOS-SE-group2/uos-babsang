@@ -1,6 +1,7 @@
 mixin brief_restaurant(restaurant)
     .list_restaurant__list
         a(href=`/restaurant/${restaurant.restaurantId}`)
+            .list_restaurant__list__img 
             div.list_restaurant__list__text
-                span=restaurant.restaurantName
-                span.list_star #{restaurant.star}
+                span.list_restaurant__name=restaurant.restaurantName
+                span.list_restaurant__star 평점 : #{restaurant.star}

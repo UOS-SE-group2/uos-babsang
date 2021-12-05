@@ -1,0 +1,12 @@
+extends ../base
+
+block content 
+    header 
+        h2 메뉴 추가
+
+    main 
+        form(method="POST")
+            input(type="text", required, name="menuName", maxlength="30", placeholder="메뉴명")
+            input(type="text", required, name="info", maxlength="50", placeholder="메뉴 정보")
+            input(type="number", required, name="price", placeholder="가격")
+            input(type="submit"value="메뉴 추가")

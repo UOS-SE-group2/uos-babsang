@@ -1,12 +1,23 @@
 extends base
 
-block content 
-    h2=title
-    form(method="POST")
-        input(type="text", required, name="id", placeholder="ID")
-        input(type="password", required, name="pw", placeholder="Password")
-        input(type="submit", value="로그인")
+block content
+    header
+        include partial/logo
+        h1 UOS TABLE
+        include partial/authentication
+    
+    aside
+        include partial/categorybar
 
-    div.login__create_account 
-            a(href="/join")
-                h4 Don't have an account? Create Now
+    main.login
+        .login_form
+            h3=title
+            form(method="POST")
+                input(type="text", required, name="id", placeholder="ID")
+                input(type="password", required, name="pw", placeholder="Password")
+                if what == "user"
+                    input(type="submit", value="로그인").user_login
+                else 
+                    input(type="submit", value="로그인").manager_login
+        div.login__create_account 
+                a(href="/join") 회원가입

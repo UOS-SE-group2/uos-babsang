@@ -2,7 +2,7 @@ import db from "../../db";
 import { restaurant } from "./homeController";
 
 export const getLoginAsManager = (req, res) => {
-    return res.render("login", {title: "매니저 로그인"});
+    return res.render("login", {title: "매니저 로그인", what:"manager"});
 }
 export const postLoginAsManager = (req, res) => {
     const {id, pw} = req.body;
@@ -91,13 +91,13 @@ export const getAddMenus = (req, res) => {
 export const postAddMenus = (req, res) => {
 
 }   
-
+export const deleteMenu = (req, res) => {
+    
+}
 //매장정보 수정
 export const getEditManager = (req, res) => res.render("manager/editStore");
 //export const postEditManager =
 
-//매출화면
-export const sales = (req, res) => res.render("manager/sales");
 
 //주문들어온 내역확인
 export const getOrderList = (req, res) => res.render("manager/orderList");

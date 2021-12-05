@@ -1,0 +1,9 @@
+mixin menuBrief(menu)
+    div.restaurant_menu__brief
+        span=menu.menuName
+        span=menu.info
+        span=menu.price
+        
+        a(href=`/api/manager/addmenus/${menu.menuId}/delete`)
+            button 메뉴 삭제
+        

@@ -11,7 +11,6 @@ managerRoute.route("/join").get(getJoinAsManager).post(postJoinAsManager);
 
 managerRoute.route("/addmenus").get(getAddMenus).post(postAddMenus);
 //managerRoute.route("/edit").get(getEditManager).post(postEditManager);
-managerRoute.get("/sales", sales);
 //managerRoute.get("/orderlist", orderlist);
 managerRoute.route("/orderlist/:id").get(getorderDetail);
 managerRoute.get("/orderlist/:id/confirmed", orderConfirm);

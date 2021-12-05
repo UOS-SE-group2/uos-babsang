@@ -1,0 +1,27 @@
+extends ../base
+include mixin_manager/menuBrief
+
+block content 
+    header
+        h2 매장 정보 수정
+
+    main
+        .editStore__restaurant 
+            form(method="POST")
+                input(type="text", placeholder="매장명", value=restaurant.restaurantName, required, name="restaurantName")
+                input(type="text", placeholder="매장주소", value=restaurant.address, required, name="address")
+                label(for="start-time") 오픈 시간
+                input(type="time", required, name="start-time")
+                label(for="end-time") 마감 시간
+                input(type="time", name="end-time", required)
+                input(type="submit", value="매장 정보 수정")
+                
+
+        .editStore__menus
+            each menu in menus 
+                +menu(menu)
+            
+            .addMenus__addBtn
+                a(href="/manager/addmenus")
+                    i.fas.fa-plus-square
+                    button 메뉴 추가

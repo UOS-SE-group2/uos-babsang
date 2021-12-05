@@ -4,7 +4,7 @@
   "description": "Software Engineering Project of UOS group 2",
   "scripts": {
     "server": "nodemon --exec babel-node src/init.js",
-    "client": "webpack --config webpack.config.js"
+    "client": "webpack --config webpack.config.js --watch"
   },
   "repository": {
     "type": "git",

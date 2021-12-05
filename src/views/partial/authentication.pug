@@ -1,0 +1,16 @@
+.userbox_wrapper 
+    if loggedIn
+        .userbox_basket
+            a(href="/customer/basket")
+                i.fas.fa-shopping-basket
+        .userbox_authenication
+            a(href="/customer/mypage")
+                h4 내정보
+            a(href="/logout")
+                h4 로그아웃
+    else
+        .userbox_authenication      
+            a(href="/login")
+                h4 로그인
+            a(href="/join")
+                h4 회원가입

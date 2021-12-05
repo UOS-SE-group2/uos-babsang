@@ -1,7 +1,7 @@
 import db from "../../db";
 
 export const getLoginAsCustomer = (req, res) => {
-    return res.render("login", {title: "고객 로그인"});
+    return res.render("login", {title: "고객 로그인", what:"user"});
 }
 export const postLoginAsCustomer = (req, res) => {
     const {id, pw} = req.body;

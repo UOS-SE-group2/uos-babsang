@@ -1,12 +1,13 @@
 mixin orderDetail(order)
     div.takenOrderDetail
-        .takenOrder_receipt
-            h4=order.restaurantName
-            span=order.time
-            span=order.menuName
-            span=order.quantity  
-            a(href=`/customer/orderhistory/${order.orderId}/addreview`)
-                input(type="button", value="리뷰 작성")
+        ul
+            li=order.restaurantName
+            li 주문시간 : #{order.time}
+            li 메뉴 : #{order.menuName}
+            li 주문수량 : #{order.quantity}
+            li 금액 : #{order.price} 
+        a(href=`/customer/orderhistory/${order.orderId}/addreview`)
+            input(type="button", value="리뷰 작성")
         if order.isConfirmed
             h4 승인된 주문
         else

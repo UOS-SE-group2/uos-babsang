@@ -5,7 +5,7 @@
 @import "./home/login_select.css";
 @import "./home/login.css";
 @import "./customer/profile.css";
-
+@import "./customer/orderhistory.css";
 header {
     display: grid;
     grid-template-columns: 2fr 6fr 2fr;

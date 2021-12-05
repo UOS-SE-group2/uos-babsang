@@ -6,9 +6,6 @@
     justify-content: center;
     flex-direction: column;
 }
-.login h3 {
-    font-size: 32px;
-}
 .login_select_box {
     display: grid;
     grid-template-rows: 1fr 1fr;

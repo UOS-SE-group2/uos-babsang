@@ -3,16 +3,16 @@ include mixin_customer/orderDetail
 
 block content
     header
-        .menubar
-            a(href="/customer/mypage") 내정보
-            a(href="/customer/orderhistory") 주문내역
-            a(href="/customer/myreviews") 리뷰조회
-    main
-        h1 주문 정보
-        ul 
-            each order in orders
-                +orderDetail(order)
-            else 
-                h3 주문내역이 존재하지 않습니다😢😢
+        include ../partial/logo
+        a(href="/")
+            h1 UOS TABLE
+        include ../partial/authentication
+    
+    main.orderhistory
+        h3 주문 정보
+        each order in orders
+            +orderDetail(order)
+        else 
+            h3 주문내역이 존재하지 않습니다😢😢
 
 

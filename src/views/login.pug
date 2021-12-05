@@ -1,8 +1,12 @@
 extends base
 
 block content 
-    h2 Login
+    h2=title
     form(method="POST")
         input(type="text", required, name="id", placeholder="ID")
         input(type="password", required, name="pw", placeholder="Password")
         input(type="submit", value="로그인")
+
+    div.login__create_account 
+            a(href="/join")
+                h4 Don't have an account? Create Now

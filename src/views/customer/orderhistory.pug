@@ -1,0 +1,21 @@
+doctype html 
+html(lang="ko")
+    head
+        title OrderHistory
+    
+    body
+        header 
+            main
+                .menubar
+                    a(href="/customer/mypage") 내정보
+                    a(href="/customer/orderhistory") 주문내역
+                    a(href="/customer/myreviews") 리뷰조회
+            block content
+                h1 개인정보
+                    ul 
+                        each order in orders
+                            li #{order.menu,order.restaurant,order.time}}
+                        else 
+                            h3 주문내역이 존재하지 않습니다😢😢
+
+

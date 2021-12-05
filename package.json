@@ -3,28 +3,32 @@
   "version": "1.0.0",
   "description": "Software Engineering Project of UOS group 2",
   "scripts": {
-    "server": "nodemon --exec babel-node src/server.js",
-    "client": "webpack --mode=development -w"
+    "server": "nodemon --exec babel-node src/init.js",
+    "client": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tank3a/uos-babsang.git"
+    "url": "git+https://github.com/UOS-SE-group2/uos-babsang"
   },
   "author": "Jongwon, Kim, ",
   "license": "UOS",
   "bugs": {
-    "url": "https://github.com/tank3a/uos-babsang/issues"
+    "url": "https://github.com/UOS-SE-group2/uos-babsang/issues"
   },
-  "homepage": "https://github.com/tank3a/uos-babsang#readme",
+  "homepage": "https://github.com/UOS-SE-group2/uos-babsang#readme",
   "dependencies": {
+    "babel-loader": "^8.2.3",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "morgan": "^1.10.0",
+    "multer": "^1.4.3",
     "mysql": "^2.18.1",
+    "node-fetch": "^3.1.0",
     "pug": "^3.0.2",
+    "regenerator-runtime": "^0.13.9",
     "session-file-store": "^1.5.0"
   },
   "devDependencies": {

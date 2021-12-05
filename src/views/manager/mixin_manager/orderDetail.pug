@@ -1,0 +1,21 @@
+include mixin_manager/receiptMenu
+
+mixin orderDetail(takenOrder)
+    div.takenOrderDetail
+        .takenOrder_receipt
+            span #{takenOrder.time}
+            span #{takenOrder.name}
+            span #{takenOrder.phone}
+            each menu in takenOrder.menus
+                +receiptMenu(menu)
+            span #{takenOrder.totalCost}    
+
+        if notConfirmed
+            div.confirm_going
+                button.confirmed ✔️
+                button.denied ❌
+        else
+            div.confirm_finished
+                h4 승인된 주문
+
+

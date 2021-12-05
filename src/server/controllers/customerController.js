@@ -130,8 +130,76 @@ export const deleteReview = (req, res) => {
 }
 
 
-
 //장바구니
-export const basket = (req, res) => res.render("customer/basket");
+export const basket = (req, res) => {
+    const restaurantId=req.params.id;
+    const menuId=req.params.menuId;
+    const userId=req.session.user.userId;
+    console.log(restaurantId);
+    console.log(menuId);
+    console.log(userId);
+    if(menuId&&userId){
+        db.query('INSERT INTO basket (userId,menuId,restaurantId) VALUES(?,?,?)', [userId,menuId,restaurantId],function(error,results){
+            if(error) throw error;
+    
+        });
+        return res.send('<script type="text/javascript">alert("장바구니에 담겼습니다!"); if (confirm("주문 페이지로 이동할까요?") == true){document.location.href="/customer/basket";}else{history.back();}</script>');
 
-//결제
+        
+
+    }else {
+        return res.send('<script type="text/javascript">alert("장바구니에 다시 담아주세요."); history.back();</script>');    
+    }
+    
+            
+       
+}
+//장바구니 불러오기
+export const basketList=(req,res)=>{
+    const userId=req.session.user.userId;
+    
+    db.query('select menu.menuName,menu.price, count(basket.menuId) AS quantity,restaurant.restaurantName,restaurant.restaurantId from  basket inner join menu on basket.menuId=menu.menuId inner join restaurant on menu.restaurantId=restaurant.restaurantId where basket.userId=? group by basket.menuId', [userId],function(error,results){
+        if(error) throw error;
+        const baskets=JSON.parse(JSON.stringify(results));
+        console.log(baskets);
+        let pay=0;
+        
+        for(let i=0;i<baskets.length;i++){
+            pay+=(baskets[i].price)*(baskets[i].quantity);
+            
+        }
+        console.log(pay);
+        res.render("customer/basket",{baskets,pay});
+    });
+
+    
+
+}
+//주문처리
+export const order=(req,res)=>{
+    const userId=req.session.user.userId;
+    const restaurantId=req.params.id;
+    db.query('SELECT menuId, userId, COUNT(menuId) AS quantity FROM basket GROUP BY menuId,userId',function(error,results){
+        if(error) throw error;
+        const isConfirmed=0;
+        const orders=JSON.parse(JSON.stringify(results));
+        console.log(orders);
+         
+        for(let i=0;i<orders.length;i++){
+            if(userId==orders[i].userId){
+                const menuId=orders[i].menuId;
+                const quantity=orders[i].quantity;
+                db.query('INSERT INTO `order` (userId,menuId,restaurantId,quantity,isConfirmed) VALUES(?,?,?,?,?)', [userId,menuId,restaurantId,quantity,isConfirmed],function(error,results){
+                    if(error) throw error;
+    
+                });
+
+            }
+                   
+        }
+        return res.send('<script type="text/javascript">alert("주문 처리가 완료되었습니다!"); document.location.href="/";</script>');
+
+    });
+    
+    
+}

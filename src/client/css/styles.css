@@ -6,6 +6,8 @@
 @import "./home/login.css";
 @import "./customer/profile.css";
 @import "./customer/orderhistory.css";
+@import "./customer/order.css";
+
 header {
     display: grid;
     grid-template-columns: 2fr 6fr 2fr;

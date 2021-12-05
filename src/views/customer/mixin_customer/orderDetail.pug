@@ -5,11 +5,14 @@ mixin orderDetail(order)
             li 주문시간 : #{order.time}
             li 메뉴 : #{order.menuName}
             li 주문수량 : #{order.quantity}
-            li 금액 : #{order.price} 
-        a(href=`/customer/orderhistory/${order.orderId}/addreview`)
-            input(type="button", value="리뷰 작성")
-        if order.isConfirmed
-            h4 승인된 주문
-        else
-            h4 승인 대기 중
+            li 금액 : #{order.totalcost} 
+        div.takenOrderDetail__bottom
+            if order.isConfirmed == 1
+                h4 승인된 주문
+            else
+                h4 승인 대기 중
+            a(href=`/customer/orderhistory/${order.orderId}`)
+                button 주문 상세
+                
+                
 

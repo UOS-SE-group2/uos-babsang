@@ -297,6 +297,9 @@ edit_form__customer h3 {
     text-align: center;
     padding: 5px;
 }
+.takenOrderDetail a {
+    grid-row: 1/2;
+}
 .takenOrderDetail {
     display: flex;
     flex-direction: column;
@@ -310,11 +313,45 @@ edit_form__customer h3 {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-bottom: 5px;
 }
 .takenOrderDetail ul li:first-child {
     font-size: 18px;
     font-weight: 800;
     margin-bottom: 10px;
+}
+.takenOrderDetail__bottom {
+    display: flex;
+    justify-content: space-between;
+}
+.takenOrderDetail__bottom h4 {
+    padding-top: 5px;
+    color: cornflowerblue;
+}
+/*!*************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/css/customer/order.css ***!
+  \*************************************************************************************/
+.order {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.order h3 {
+    margin-bottom: 20px;
+}
+.orderDetail {
+    padding: 20px;
+    box-shadow: 0px 0px 0px 2px rgba(224,224,224,0.74);
+}
+.orderDetail ul {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 15px;
+}
+.orderDetail__link {
+    text-align: right;
 }
 /*!*********************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/css/styles.css (1) ***!

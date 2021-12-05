@@ -2,16 +2,22 @@ extends ../base
     
 block content
     header
-        .menubar
-            a(href="/customer/mypage") 내정보
-            a(href="/customer/orderhistory") 주문내역
-            a(href="/customer/myreviews") 리뷰조회
+        include ../partial/logo
+        a(href="/")
+            h1 UOS TABLE
+        include ../partial/authentication
 
-    main
-        ul 
-            li 주문가게 : #{order.restaurantName}
-            li 주문메뉴 : #{order.menuName}
-            li 결제금액 : #{order.price}
-            li 주문시간 : #{order.time}
-            li 주문가게 전화번호 : #{order.phone}
-            li 주문가게 주소 : #{order.address}
+    main.order
+        h3 주문 상세정보
+        div.orderDetail
+            ul 
+                li 주문가게 : #{order.restaurantName}
+                li 주문메뉴 : #{order.menuName}
+                li 결제금액 : #{order.price}
+                li 주문시간 : #{order.time}
+                li 주문가게 전화번호 : #{order.phone}
+                li 주문가게 주소 : #{order.address}
+
+            .orderDetail__link 
+                a(href=`/customer/orderhistory/${order.orderId}/addreview`)
+                    button 리뷰 작성

@@ -83,10 +83,12 @@ export const postEditCustomer = (req, res) => {
 }
 export const orderHistory = (req, res) => {
     const userId=req.session.user.userId;
-    db.query('SELECT order.orderId, restaurant.restaurantName, `order`.time, menu.menuName, `order`.quantity, `order`.isConfirmed FROM (`order` INNER JOIN user ON `order`.userId = user.userId), restaurant, menu WHERE user.userId = ? AND `order`.restaurantId = restaurant.restaurantId AND `order`.menuId = menu.menuId',[userId],function(error,results,fields){
+    db.query('SELECT order.orderId, restaurant.restaurantName, `order`.time, menu.menuName, menu.price, `order`.quantity, `order`.price AS totalcost, `order`.isConfirmed FROM (`order` INNER JOIN user ON `order`.userId = user.userId), restaurant, menu WHERE user.userId = ? AND `order`.restaurantId = restaurant.restaurantId AND `order`.menuId = menu.menuId',[userId],function(error,results,fields){
         if(error) throw(error);
         const orders=JSON.parse(JSON.stringify(results));
-        console.log(orders);
+        for(var i = 0; i < orders.length; i++) {
+            orders[i].totalcost = orders[i].price * orders[i].quantity;
+        }
         res.render("customer/orderhistory",{orders});
     });
 }
@@ -112,10 +114,16 @@ export const reviewList = (req, res) => {
 export const getAddReview = (req, res) => res.render("customer/addReview");
 export const postAddReview = (req,res) => {
     const {stars, comment} = req.body;
+    const userId = req.session.user.userId;
+    const orderId = req.params.id;
     if(stars && comment){
-        db.query('INSERT INTO review (stars,comment) VALUES (?,?)', [stars, comment], function(error, result) {
+        db.query('SELECT restaurantId, menuId FROM `order` WHERE orderId=?', [orderId], function(error, result) {
             if(error) throw error;
-            return res.send('<script type="text/javascript">alert("리뷰 등록이 완료되었습니다!"); document.location.href="/customer/myreviews";</script>');
+            const order = JSON.parse(JSON.stringify(result[0]));
+            db.query('INSERT INTO review (stars,comment, userId, menuId, restaurantId) VALUES (?,?, ?, ?, ?)', [stars, comment, userId, order.menuId, order.restaurantId], function(error, result) {
+                if(error) throw error;
+                return res.send('<script type="text/javascript">alert("리뷰 등록이 완료되었습니다!"); document.location.href="/customer/myreviews";</script>');
+            });
         });
     } else {
         return res.send('<script type="text/javascript">alert("리뷰 내용을 작성해주세요."); history.back();</script>');    

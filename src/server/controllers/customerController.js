@@ -90,6 +90,15 @@ export const orderHistory = (req, res) => {
         res.render("customer/orderhistory",{orders});
     });
 }
+export const ordered = (req, res) => {
+    const orderId = req.params.orderId;
+    db.query('SELECT restaurant.restaurantName, menu.menuName, menu.price,`order`.time, restaurant.phone, restaurant.address FROM restaurant inner join `order` on restaurant.restaurantId=`order`.restaurantId inner join menu on `order`.menuId=menu.menuId WHERE order.orderId = ? ', [orderId], function(error, results, fields){
+        if(error) throw error;
+        const order=JSON.parse(JSON.stringify(results[0]));
+        console.log(order);
+        res.render("customer/order",{order});
+    });
+}
 
 export const reviewList = (req, res) => {
     const userId = req.session.user.userId;
@@ -120,15 +129,6 @@ export const deleteReview = (req, res) => {
     return res.redirect("/customer/myreviews");
 }
 
-export const ordered = (req, res) => {
-    const orderId=req.session.user.orderId;
-    db.query('SELECT restaurant.restaurantName, menu.menuName, menu.price,`order`.time, restaurant.phone, restaurant.address FROM restaurant inner join `order` on restaurant.restaurantId=`order`.restaurantId inner join menu on `order`.menuId=menu.menuId WHERE order.orderId = ? ', [orderId], function(error, results, fields){
-        if(error) throw error;
-        console.log(results);
-        const order=JSON.parse(JSON.stringify(results));
-        res.render("customer/order",{order});
-    });
-}
 
 
 //장바구니

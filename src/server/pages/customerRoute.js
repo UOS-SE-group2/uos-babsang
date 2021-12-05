@@ -10,12 +10,11 @@ customerRoute.route("/edit").get(getEditCustomer).post(postEditCustomer);
 customerRoute.get("/orderhistory", orderHistory);
 customerRoute.get("/myreviews", reviewList);
 customerRoute.route("/orderhistory/:id/addreview").get(getAddReview).post(postAddReview);
+customerRoute.get("/orderhistory/:orderId", ordered);
 
 
 
 
-
-customerRoute.get("/orderhistory/:id", ordered);
 customerRoute.get("/basket", basket);
 //customerRoute.route("/:id/basket/:id/payment").get(getPayment).post(postPayment);
 //리뷰 상세보기 및 수정기능도 추가할거면

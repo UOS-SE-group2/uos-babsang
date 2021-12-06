@@ -5,5 +5,9 @@ mixin menuBrief(menu)
         span 메뉴정보: #{menu.info}
         span 금액 : #{menu.price}
         div.restaurant_menu__brief__bottom
-            a(href=`/api/restaurant/${menu.restaurantId}/${menu.menuId}`)
-                button 장바구니 담기
+            if who == "manager"
+                a(href=`/api/manager/deletemenu/${menu.menuId}`)
+            else
+                a(href=`/api/restaurant/${menu.restaurantId}/${menu.menuId}`)
+                    button 장바구니 담기
+        

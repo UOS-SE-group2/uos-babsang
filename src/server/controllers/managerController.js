@@ -1,5 +1,4 @@
 import db from "../../db";
-import { restaurant } from "./homeController";
 
 export const getLoginAsManager = (req, res) => {
     return res.render("login", {title: "매니저 로그인", what:"manager"});
@@ -26,13 +25,12 @@ export const postLoginAsManager = (req, res) => {
 }
 export const getJoinAsManager = (req, res) => res.render("manager/join");
 export const postJoinAsManager = (req, res) => {
-    const {name, id, pw, pwcheck, phone} = req.body;
-    console.log(name, id, pw, phone);
+    const {name, id, pw, pwcheck, phone, categoryId, start_time, address} = req.body;
     if(name && id && pw && phone) {
         db.query("SELECT restaurantName FROM restaurant WHERE id = ?", [id], function(error, results, fields) {
             if (error) throw error;
             if (results.length <= 0 && pw==pwcheck) {
-                db.query('INSERT INTO restaurant (restaurantName, id, pw, phone) VALUES(?,?,?,?)', [name, id, pw, phone],
+                db.query('INSERT INTO restaurant (restaurantName, id, pw, phone, categoryId, address, openTime) VALUES(?,?,?,?,?, ?,?)', [name, id, pw, phone, categoryId, address, start_time],
                 function (error, data) {
                     if (error)
                     console.log(error);
@@ -52,39 +50,43 @@ export const managerHome = (req, res) => {
     const restId = req.session.user.restaurantId;
     const restaurantName = req.session.user.restaurantName;
 
-    db.query('select restaurant.restaurantName, restaurant.phone, `order`.time, `order`.orderId, menu.menuName, menu.price from restaurant inner join `order` on restaurant.restaurantId=`order`.restaurantId inner join menu on `order`.menuId=menu.menuId where restaurant.restaurantId=?', [restId], function(error, results, fields) {
-        if(error) {
-            throw error;
-        }
-        if(results) {
-            const orders = (JSON.parse(JSON.stringify(results)));
-            db.query('SELECT * FROM menu WHERE restaurantId=?', [restId], function(error, results2, fields) {
-                if(error) {
-                    throw error;
+    db.query('SELECT restaurant.address, restaurant.openTime, category.categoryName, restaurant.phone FROM restaurant, category WHERE restaurant.restaurantId = ? AND category.categoryId=restaurant.categoryId', [restId], function(error, result) {
+        if(error) throw error;
+        const restaurant = JSON.parse(JSON.stringify(result[0]));
+        db.query('select restaurant.restaurantName, `order`.isConfirmed, `order`.time, `order`.orderId, menu.menuName, menu.price from restaurant inner join `order` on restaurant.restaurantId=`order`.restaurantId inner join menu on `order`.menuId=menu.menuId, category where restaurant.restaurantId=?', [restId], function(error, results, fields) {
+            if(error) {
+                throw error;
+            }
+            if(results) {
+                const orders = (JSON.parse(JSON.stringify(results)));
+                for(var i = 0; i < orders.length; i++) {
+                    const time = new Date(orders[i].time);
+                    const year = time.getFullYear();
+                    const month = time.getMonth()+1;
+                    const date = time.getDate();
+                    var hours = time.getHours();
+                    var min = time.getMinutes();
+                    var sec = time.getSeconds();
+                    hours = hours < 10 ? '0'+hours : hours;
+                    min = min < 10 ? '0'+min : min;
+                    sec = sec < 10 ? '0'+sec : sec;
+                    const timestr = year+"/"+month+"/"+date+" "+hours+":"+min+":"+sec;
+                    orders[i].time = timestr;
                 }
-                const menus = (JSON.parse(JSON.stringify(results2)));
-                return res.render("manager/home", {restaurantName, orders, menus});
-            })
-
-        } else {
-            return res.status(404).render("error");
-        }
+                db.query('SELECT * FROM menu WHERE restaurantId=?', [restId], function(error, results2, fields) {
+                    if(error) {
+                        throw error;
+                    }
+                    const menus = (JSON.parse(JSON.stringify(results2)));
+                    return res.render("manager/home", {restaurant, restaurantName, orders, menus});
+                })
+                
+            } else {
+                return res.status(404).render("error");
+            }
+        });
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export const getAddMenus = (req, res) => res.render("manager/addMenus");
 export const postAddMenus = (req, res) => {
     const {menuName,info,price}=req.body;
@@ -93,36 +95,39 @@ export const postAddMenus = (req, res) => {
         db.query("INSERT INTO menu(restaurantId,menuName,info,price) VALUES(?,?,?,?)",[restId,menuName,info,price],
         function(error,results,fields){
             if(error)throw error;
-            return res.send('<script type="text/javascript">alert("메뉴등록이 완료되었습니다."); document.location.href="/manager/edit";</script>');    
+            return res.send('<script type="text/javascript">alert("메뉴등록이 완료되었습니다."); document.location.href="/manager";</script>');    
         });
-
     }else{
         return res.send('<script type="text/javascript">alert("모든 정보를 입력하세요"); history.back();</script>'); 
     }
-}   
-export const deleteMenu = (req, res) => {
-    
 }
-//매장정보 수정
+
+export const deleteMenu = (req, res) => {
+    const menuId = req.params.menuId;
+    db.query("DELETE FROM menu WHERE menuId=?", [menuId], function(error) {
+        if(error) {
+            return res.render("error");
+        }
+    })
+    return res.redirect("/manager");
+}
+
 export const getEditManager = (req, res) => {
-    const restaurant = req.session.user;
-    const restId=req.session.user.restaurantId;
-    db.query("SELECT menuName , info , price FROM menu WHERE restaurantId = ?",[restId],
+    const restaurantId = req.session.user.restaurantId;
+    db.query("SELECT restaurantName, address, phone FROM restaurant WHERE restaurantId = ?",[restaurantId],
         function(error,results,fields){
             if(error) console.log(error);
-            const menus=JSON.parse(JSON.stringify(results));
-            res.render("manager/editStore",{restaurant,menus});    
+            const restaurant=JSON.parse(JSON.stringify(results[0]));
+            res.render("manager/editStore",{restaurant});    
         });
 }
 
 export const postEditManager = (req, res) => {
-    const {restaurantName,address,start_time,end_time}=req.body;
-    console.log(address);
+    const {restaurantName,address,start_time, categoryId, phone}=req.body;
     const restId=req.session.user.restaurantId;
-    if(start_time && end_time){
-            db.query('UPDATE restaurant SET restaurant.restaurantName = ?, restaurant.address = ?, restaurant.openTime = ? WHERE restaurantId = ?',[restaurantName,address,`${start_time}~${end_time}`,restId],function(error,results,fields){
+    if(restaurantName && address && start_time && categoryId && phone){
+            db.query('UPDATE restaurant SET restaurant.restaurantName = ?, restaurant.address = ?, restaurant.openTime = ?, restaurant.categoryId = ?, restaurant.phone=? WHERE restaurantId = ?',[restaurantName,address,start_time, categoryId, phone, restId],function(error,results,fields){
                 if(error) throw error;
-                console.log(results);
             });
             return res.send('<script type="text/javascript">alert("매장정보 수정이 완료되었습니다."); document.location.href="/manager";</script>');    
     }else{
@@ -164,12 +169,11 @@ export const getorderDetail = (req, res) => {
 }
 export const orderConfirm = (req, res) => {
     const orderId = req.params.id;
-    db.query(`UPDATE order SET isConfirmed = true WHRER orderId = ${orderId}`);
-    return res.send('<script type="text/javascript">alert("승인처리 되었습니다");</script>');
+    db.query('UPDATE `order` SET isConfirmed = 1 WHERE orderId = ?', [orderId]);
+    return res.send('<script type="text/javascript">alert("승인처리 되었습니다"); document.location.href="/manager";</script>');
 }
 export const orderDenied = (req, res) => {
     const orderId = req.params.id;
-    db.query(`DELETE FROM order WHRER orderId = ${orderId}`);
-    res.send('<script type="text/javascript">alert("주문이 취소되었습니다");</script>');
-    return res.status(200).redirect(`/manager/orderlist/${orderId}`);
+    db.query('DELETE FROM `order` WHERE orderId =?',[orderId]);
+    return res.send('<script type="text/javascript">alert("주문이 취소되었습니다"); document.location.href="/manager";</script>');
 }

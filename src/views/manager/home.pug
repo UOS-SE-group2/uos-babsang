@@ -4,18 +4,40 @@ include ../mixin_main/menuBrief
 
 block content 
     header
-        h2=restaurantName
-        a(href="/manager/edit") 가게 정보 수정
-        a(href="/logout") 로그아웃
-    
-    main 
-        .order_brief_list 
+        include ../partial/logo
+        a(href="/manager")
+            h1 UOS TABLE
+        .managerbox_authenication
+            a(href="/manager/edit") 가게 수정
+            a(href="/logout") 로그아웃
+        
+    main.manager
+        h3 #{restaurantName}
+        .manager_restaurantBrief
+            div
+                span 매장번호 : 
+                span #{restaurant.phone}
+            div
+                span 주소 : 
+                span #{restaurant.address}
+            div
+                span 오픈 시간 : 
+                span #{restaurant.openTime}
+            div
+                span 카테고리 : 
+                span #{restaurant.categoryName}
+        .manager_orderBrief
+            h4 주문
             each order in orders 
                 +orderBrief(order)
             else 
-                h4 들어온 주문이 없어요
-        .restaurant_menu_brief
+                span 들어온 주문이 없어요
+        .manager_menuBrief
+            h4 메뉴
             each menu in menus 
                 +menuBrief(menu)
             else 
-                h4 메뉴를 추가해 주세요
+                span 메뉴를 추가해 주세요
+                div.manager_menuBrief__addBtn
+                    a(href="/manager/addmenus")
+                        button 메뉴 추가

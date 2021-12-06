@@ -42,17 +42,17 @@ export const search = (req, res) => {
 }
 
 export const restaurant = (req, res) => {
-    const id=req.params.id;
-    db.query('SELECT * FROM restaurant WHERE restaurantId= ?', [id], function(error, results, fields){
+    const restaurantId=req.params.restaurantId;
+    db.query('SELECT * FROM restaurant WHERE restaurantId= ?', [restaurantId], function(error, results, fields){
         if(error) throw error;
         
         if(results){
             const restaurant=JSON.parse(JSON.stringify(results[0]));
-            db.query('SELECT * FROM menu WHERE restaurantId= ?', [id], function(error, results1, fields){
+            db.query('SELECT * FROM menu WHERE restaurantId= ?', [restaurantId], function(error, results1, fields){
                 if(error) throw error;
                 if(results1){
                     const menus=JSON.parse(JSON.stringify(results1));
-                    db.query('SELECT review.stars, review.createdAt, review.comment, user.name FROM review, user WHERE user.userId = review.userId AND restaurantId= ?', [id], function(error, results2, fields){
+                    db.query('SELECT review.stars, review.createdAt, review.comment, user.name FROM review, user WHERE user.userId = review.userId AND restaurantId= ?', [restaurantId], function(error, results2, fields){
                         if(error) throw error;
                         const reviews=JSON.parse(JSON.stringify(results2));
                         res.render("restaurant",{restaurant,menus,reviews});

@@ -9,6 +9,6 @@ rootRoute.get("/login", getLogin);
 rootRoute.get("/join", getJoin);
 rootRoute.get("/logout", logout);
 rootRoute.post("/search", search);
-rootRoute.get("/restaurant/:id", restaurant);
+rootRoute.get("/restaurant/:restaurantId", restaurant);
 
 export default rootRoute;

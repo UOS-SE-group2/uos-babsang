@@ -31,19 +31,30 @@ edit_form__customer h3 {
 }
 .login_form form input,
 .join_form__manager form input,
+.join_form__manager form select,
 .join_form__customer form input,
 .edit_form__customer form input {
     height: 30px;
     padding: 5px 10px;
 }
+.join_form__manager__open,
+.join_form__manager__category {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10%;
+}
+.join_form__manager form select {
+    width: 50%;
+}
 .manager_login,
-.join_form__manager input:last-child {
+.join_form__manager input[type=submit] {
     background-color: rgb(223,76,53);
     border: none;
     border-radius: 5px;
 }
 .user_login,
-.join_form__customer input:last-child {
+.join_form__customer input[type=submit] {
     border: none;
     border-radius: 5px;
     background-color: rgb(242,216,119);

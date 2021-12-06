@@ -1,5 +1,13 @@
 mixin orderBrief(order)
-    .order_brief 
-        span=order.time 
-        span #{order.menuName}...
-        span=order.price
+    .manager_orderBrief__description 
+        .manager_orderBrief__text
+            span=order.time 
+            span=order.menuName
+            span #{order.price}원
+
+        if order.isConfirmed == 0
+            .manager_orderBrief__confirm
+                a(href=`/api/manager/orderlist/${order.orderId}/confirmed`)
+                    button 승인
+                a(href=`/api/manager/orderlist/${order.orderId}/denied`)
+                    button 반려

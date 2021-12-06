@@ -1,15 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap');
-
 @import "reset.css";
+
 @import "./home/home.css";
 @import "./home/login_select.css";
 @import "./home/login.css";
+@import "./home/restaurant.css";
+
 @import "./customer/profile.css";
 @import "./customer/orderhistory.css";
 @import "./customer/order.css";
 @import "./customer/review.css";
-@import "./home/restaurant.css";
 @import "./customer/basket.css";
+
+@import "./manager/home.css";
+@import "./manager/addMenus.css";
+@import "./manager/editStore.css";
 
 header {
     display: grid;

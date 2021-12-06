@@ -8,6 +8,7 @@ import session from "express-session";
 import compression from "compression";
 import { localsMiddleware } from "./middlewares";
 const cookieParser = require('cookie-parser');
+const path = require("path");
 
 const app = express();
 
@@ -33,7 +34,7 @@ app.use(logger);
 
 app.use(localsMiddleware);
 app.use("/dist", express.static("dist"));
-app.use("/images", express.static("/src/server/images"));
+app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/", rootRoute);
 app.use("/api", apiRoute);
 app.use("/customer", customerRoute);

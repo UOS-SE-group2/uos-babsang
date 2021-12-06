@@ -1,3 +1,7 @@
-.logo_wrapper 
-    a(href="/")
-        img(src="#").main_logo
+.logo_wrapper
+    if who == "user"
+        a(href="/")
+            img(src="/images/logo.png#").main_logo
+    else
+        a(href="/manager")
+            img(src="/images/logo.png").main_logo

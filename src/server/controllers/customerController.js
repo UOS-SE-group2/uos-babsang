@@ -87,6 +87,18 @@ export const orderHistory = (req, res) => {
         if(error) throw(error);
         const orders=JSON.parse(JSON.stringify(results));
         for(var i = 0; i < orders.length; i++) {
+            const time = new Date(orders[i].time);
+            const year = time.getFullYear();
+            const month = time.getMonth()+1;
+            const date = time.getDate();
+            var hours = time.getHours();
+            var min = time.getMinutes();
+            var sec = time.getSeconds();
+            hours = hours < 10 ? '0'+hours : hours;
+            min = min < 10 ? '0'+min : min;
+            sec = sec < 10 ? '0'+sec : sec;
+            const timestr = year+"/"+month+"/"+date+" "+hours+":"+min+":"+sec;
+            orders[i].time = timestr;
             orders[i].totalcost = orders[i].price * orders[i].quantity;
         }
         res.render("customer/orderhistory",{orders});
@@ -97,7 +109,18 @@ export const ordered = (req, res) => {
     db.query('SELECT `order`.orderId, restaurant.restaurantName, menu.menuName, menu.price,`order`.time, restaurant.phone, restaurant.address FROM restaurant inner join `order` on restaurant.restaurantId=`order`.restaurantId inner join menu on `order`.menuId=menu.menuId WHERE order.orderId = ? ', [orderId], function(error, results, fields){
         if(error) throw error;
         const order=JSON.parse(JSON.stringify(results[0]));
-        console.log(order);
+        const time = new Date(order.time);
+        const year = time.getFullYear();
+        const month = time.getMonth()+1;
+        const date = time.getDate();
+        var hours = time.getHours();
+        var min = time.getMinutes();
+        var sec = time.getSeconds();
+        hours = hours < 10 ? '0'+hours : hours;
+        min = min < 10 ? '0'+min : min;
+        sec = sec < 10 ? '0'+sec : sec;
+        const timestr = year+"/"+month+"/"+date+" "+hours+":"+min+":"+sec;
+        order.time = timestr;
         res.render("customer/order",{order});
     });
 }
@@ -107,7 +130,20 @@ export const reviewList = (req, res) => {
     db.query('SELECT review.reviewId, review.stars, review.createdAt, review.comment, user.name FROM review, user WHERE user.userId = review.userId AND user.userId=?',[userId], function (error,result) {
         if(error) throw(error);
         const reviews = JSON.parse(JSON.stringify(result));
-        console.log(reviews);
+        for(var i=0; i < reviews.length; i++) {
+            const time = new Date(reviews[i].createdAt);
+            const year = time.getFullYear();
+            const month = time.getMonth()+1;
+            const date = time.getDate();
+            var hours = time.getHours();
+            var min = time.getMinutes();
+            var sec = time.getSeconds();
+            hours = hours < 10 ? '0'+hours : hours;
+            min = min < 10 ? '0'+min : min;
+            sec = sec < 10 ? '0'+sec : sec;
+            const timestr = year+"/"+month+"/"+date+" "+hours+":"+min+":"+sec;
+            reviews[i].createdAt = timestr;
+        }
         res.render("customer/reviewList",{reviews});
     });
 }

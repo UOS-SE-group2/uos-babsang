@@ -16,10 +16,6 @@ customerRoute.get("/orderhistory/:orderId", ordered);
 
 
 customerRoute.get("/basket", basketList);
-//customerRoute.route("/:id/basket/:id/payment").get(getPayment).post(postPayment);
-//리뷰 상세보기 및 수정기능도 추가할거면
-//customerRoute.get("/myreviews/:id");
-//customerRoute.get("/myreviews/:id/deleteReview");
 
 
 export default customerRoute;

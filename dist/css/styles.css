@@ -382,6 +382,110 @@ edit_form__customer h3 {
 .restaurant_review__bottom {
     text-align: right;
 }
+/*!**************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/css/home/restaurant.css ***!
+  \**************************************************************************************/
+.restaurant {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.restaurant h3,
+.restaurant_description,
+.restaurant_menus,
+.restaurant_reviews {
+    padding: 15px 10px;
+    border-bottom: 3px dashed rgba(167, 167, 167, 0.7);
+}
+.restaurant_description h4,
+.restaurant_menus h4,
+.restaurant_reviews h4 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.restaurant_description ul {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.restaurant_description ul li {
+    padding: 3px 0;
+} 
+.restaurant_menus {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.restaurant_menus h4 {
+    grid-column: 1/3;
+}
+.restaurant_menus .restaurant_menu__brief {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 2% 0;
+}
+.restaurant_menus .restaurant_menu__brief:nth-child(2n) {
+    border-right: 0.5px solid rgba(167, 167, 167, 0.7);
+}
+.restaurant_menus .restaurant_menu__brief:nth-child(2n+1) {
+    padding-left: 3%;
+}
+.restaurant_menus .restaurant_menu__brief img {
+    width: 60px;
+    height: 60px;
+    background-color: black;
+    margin-bottom: 10px;
+}
+.restaurant_menus .restaurant_menu__brief span:first-child {
+    padding-bottom: 8px;
+}
+.restaurant_menus .restaurant_menu__brief__bottom {
+    margin-top: 5px;
+    display: flex;
+    justify-content: flex-start;
+}
+.restaurant_reviews .restaurant_review {
+    border: none;
+}
+.restaurant_reviews .restaurant_review .restaurant_review__bottom {
+    visibility: hidden;
+}
+/*!**************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/css/customer/basket.css ***!
+  \**************************************************************************************/
+.basket h3 {
+    padding: 10px 0;
+}
+.basket__menu {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+    margin-bottom: 20px;
+    padding: 10px 10px;
+    border-bottom: 0.5px solid rgba(167, 167, 167, 0.7);
+}
+.basket__menu h4 {
+    width: 10%;
+    margin-right: 20%;
+}
+.basket__menu ul {
+    min-width: 50%;
+    display: flex;
+    justify-content: space-around;
+    gap: 5px;
+}
+.basket__menu ul li {
+    width: 33%;
+}
+.totalCost {
+    display: block;
+    margin-bottom: 10px;
+}
+.basketExistMenu {
+    text-align: right;
+}
 /*!*********************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/client/css/styles.css (1) ***!
   \*********************************************************************************/

@@ -8,6 +8,8 @@
 @import "./customer/orderhistory.css";
 @import "./customer/order.css";
 @import "./customer/review.css";
+@import "./home/restaurant.css";
+@import "./customer/basket.css";
 
 header {
     display: grid;

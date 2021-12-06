@@ -4,27 +4,29 @@ include mixin_main/review
 
 block content 
     header 
-        h2=restaurant.restaurantName
-    main
+        include partial/logo
+        include partial/searchbar
+        include partial/authentication
+    
+    main.restaurant
+        h3=restaurant.restaurantName
         .restaurant_description 
-            .restaurant_description__open 
-                span 영업 시간
-                span=restaurant.openTime
-            .restaurant_description__address 
-                span 주소
-                span=restaurant.address
-            .restaurant_description__tel
-                span 매장 번호
-                span=restaurant.phone
+            h4 가게 정보
+            ul  
+                li 영업 시간 : #{restaurant.openTime}
+                li 주소 : #{restaurant.address}
+                li 매장 번호: #{restaurant.phone}
         .restaurant_menus
+            h4 메뉴
             each menu in menus 
                 +menuBrief(menu)
             else 
                 h4 로딩 실패
         .restaurant_reviews
+            h4 리뷰
             each review in reviews
                 +review(review)
             else 
-                h4 리뷰가 없습니다.
+                span 리뷰가 없습니다.
 
 block script

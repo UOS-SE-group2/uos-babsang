@@ -1,18 +1,23 @@
-doctype html 
-html(lang="ko")
-    head 
-        title Basket 
-    body
-        header
-            main
-                h3 장바구니
-                       
-            block content
-                span 식당: #{baskets[0].restaurantName}
-                    ul
-                        each basket in baskets
-                            li #{basket.menuName} : #{basket.price}원 #{basket.quantity}개
-                        
-                span 결제 금액: #{pay}원
-            form(action=`/api/order/${baskets[0].restaurantId}`)
-                input(type="submit",name="orderButton", value="주문")
+extends ../base
+include mixin_customer/basketMenu
+
+block content 
+    header 
+        include ../partial/logo
+        include ../partial/searchbar
+        include ../partial/authentication
+    aside
+        include ../partial/categorybar
+    
+    main.basket
+        h3 장바구니
+        each basket in baskets 
+            +basket(basket)
+        else 
+            span 장바구니가 비었습니다.
+        
+        if baskets
+            .basketExistMenu
+                span.totalCost 결제 금액: #{pay}원
+                form(action=`/api/order/${baskets[0].restaurantId}`)
+                    input(type="submit",name="orderButton", value="주문")

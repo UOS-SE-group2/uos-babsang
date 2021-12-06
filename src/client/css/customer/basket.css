@@ -1,0 +1,31 @@
+.basket h3 {
+    padding: 10px 0;
+}
+.basket__menu {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+    margin-bottom: 20px;
+    padding: 10px 10px;
+    border-bottom: 0.5px solid rgba(167, 167, 167, 0.7);
+}
+.basket__menu h4 {
+    width: 10%;
+    margin-right: 20%;
+}
+.basket__menu ul {
+    min-width: 50%;
+    display: flex;
+    justify-content: space-around;
+    gap: 5px;
+}
+.basket__menu ul li {
+    width: 33%;
+}
+.totalCost {
+    display: block;
+    margin-bottom: 10px;
+}
+.basketExistMenu {
+    text-align: right;
+}

@@ -158,7 +158,16 @@ export const postAddReview = (req,res) => {
             const order = JSON.parse(JSON.stringify(result[0]));
             db.query('INSERT INTO review (stars,comment, userId, menuId, restaurantId) VALUES (?,?, ?, ?, ?)', [stars, comment, userId, order.menuId, order.restaurantId], function(error, result) {
                 if(error) throw error;
-                return res.send('<script type="text/javascript">alert("리뷰 등록이 완료되었습니다!"); document.location.href="/customer/myreviews";</script>');
+                db.query('SELECT AVG(stars) AS star FROM review WHERE restaurantId=? GROUP BY restaurantId ',[order.restaurantId],function(error, result){
+                    if(error) throw error;
+                    const star=JSON.parse(JSON.stringify(result[0])).star;
+                    db.query('UPDATE restaurant SET star=? WHERE restaurantId=?',[star,order.restaurantId],function(error, result){
+                        if(error) throw error;
+                        console.log(result);
+                        return res.send('<script type="text/javascript">alert("리뷰 등록이 완료되었습니다!"); document.location.href="/customer/myreviews";</script>');
+                    });
+
+                });
             });
         });
     } else {

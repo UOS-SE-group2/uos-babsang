@@ -85,22 +85,66 @@ export const managerHome = (req, res) => {
 
 
 
-export const getAddMenus = (req, res) => {
-
-}
+export const getAddMenus = (req, res) => res.render("manager/addMenus");
 export const postAddMenus = (req, res) => {
+    const {menuName,info,price}=req.body;
+    const restId=req.session.user.restaurantId;
+    if(menuName&&info&&price){
+        db.query("INSERT INTO menu(restaurantId,menuName,info,price) VALUES(?,?,?,?)",[restId,menuName,info,price],
+        function(error,results,fields){
+            if(error)throw error;
+            return res.send('<script type="text/javascript">alert("메뉴등록이 완료되었습니다."); document.location.href="/manager/edit";</script>');    
+        });
 
+    }else{
+        return res.send('<script type="text/javascript">alert("모든 정보를 입력하세요"); history.back();</script>'); 
+    }
 }   
 export const deleteMenu = (req, res) => {
     
 }
 //매장정보 수정
-export const getEditManager = (req, res) => res.render("manager/editStore");
-//export const postEditManager =
+export const getEditManager = (req, res) => {
+    const restaurant = req.session.user;
+    const restId=req.session.user.restaurantId;
+    db.query("SELECT menuName , info , price FROM menu WHERE restaurantId = ?",[restId],
+        function(error,results,fields){
+            if(error) console.log(error);
+            const menus=JSON.parse(JSON.stringify(results));
+            res.render("manager/editStore",{restaurant,menus});    
+        });
+}
 
+export const postEditManager = (req, res) => {
+    const {restaurantName,address,start_time,end_time}=req.body;
+    console.log(address);
+    const restId=req.session.user.restaurantId;
+    if(start_time && end_time){
+            db.query('UPDATE restaurant SET restaurant.restaurantName = ?, restaurant.address = ?, restaurant.openTime = ? WHERE restaurantId = ?',[restaurantName,address,`${start_time}~${end_time}`,restId],function(error,results,fields){
+                if(error) throw error;
+                console.log(results);
+            });
+            return res.send('<script type="text/javascript">alert("매장정보 수정이 완료되었습니다."); document.location.href="/manager";</script>');    
+    }else{
+        return res.send('<script type="text/javascript">alert("모든 정보를 입력하세요"); history.back();</script>'); 
+    }
+}
 
 //주문들어온 내역확인
-export const getOrderList = (req, res) => res.render("manager/orderList");
+export const getOrderList = (req, res) => {
+    const restId=req.session.user.restaurantId;
+    try{
+        db.query('SELECT `order`.time, menu.menuName, `order`.quantity, `order`.price, `order`.price AS totalcost FROM (`order` INNER JOIN user ON `order`.userId = user.userId), restaurant, menu WHERE `order`.restaurantId = ? AND `order`.restaurantId = restaurant.restaurantId AND `order`.menuId = menu.menuId',[restId],function(error,results,fields){
+            const orders=JSON.parse(JSON.stringify(results));
+            for(var i = 0; i < orders.length; i++) {
+                orders[i].totalcost = orders[i].price * orders[i].quantity;
+            }
+            return res.render("manager/orderList",orders)
+        });
+    } catch(error){
+        return res.status(404).render("error");
+    }
+}
 //export const postOrderList = g
 //주문상세
 export const getorderDetail = (req, res) => {

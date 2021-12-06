@@ -1,0 +1,15 @@
+extends ../base
+include mixin_manager/order
+
+block content 
+    header 
+        include ../partial/logo
+        a(href="/")
+            h1 UOS TABLE
+        include ../partial/authentication
+    main.orderList
+        h3  주문정보
+        each order in orders
+            +order(order)
+        else 
+            h3 주문내역이 존재하지 않습니다😢😢

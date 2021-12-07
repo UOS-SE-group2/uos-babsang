@@ -66,13 +66,13 @@
 }
 .manager_orderBrief__description {
     display: flex;
-    gap: 5px;
-}
-.manager_orderBrief__description {
-    display: flex;
     justify-content: space-between;
 }
 
+.manager_orderBrief__text {
+    display: flex;
+    gap: 10px;
+}
 .manager_menuBrief .restaurant_menu__brief {
     display: flex;
     flex-direction: column;

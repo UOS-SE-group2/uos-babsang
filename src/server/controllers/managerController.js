@@ -53,7 +53,7 @@ export const managerHome = (req, res) => {
     db.query('SELECT restaurant.address, restaurant.openTime, category.categoryName, restaurant.phone FROM restaurant, category WHERE restaurant.restaurantId = ? AND category.categoryId=restaurant.categoryId', [restId], function(error, result) {
         if(error) throw error;
         const restaurant = JSON.parse(JSON.stringify(result[0]));
-        db.query('select restaurant.restaurantName, `order`.isConfirmed, `order`.time, `order`.orderId, menu.menuName, menu.price from restaurant inner join `order` on restaurant.restaurantId=`order`.restaurantId inner join menu on `order`.menuId=menu.menuId, category where restaurant.restaurantId=?', [restId], function(error, results, fields) {
+        db.query('select `order`.isConfirmed, `order`.time, `order`.orderId, `order`.quantity, menu.menuName, menu.price FROM `order`, menu where `order`.restaurantId=? AND menu.menuId = `order`.menuId', [restId], function(error, results, fields) {
             if(error) {
                 throw error;
             }

@@ -4,6 +4,7 @@ mixin orderBrief(order)
             span=order.time 
             span=order.menuName
             span #{order.price}원
+            span #{order.quantity} 개
 
         if order.isConfirmed == 0
             .manager_orderBrief__confirm

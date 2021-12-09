@@ -114,7 +114,7 @@ export const deleteMenu = (req, res) => {
 
 export const getEditManager = (req, res) => {
     const restaurantId = req.session.user.restaurantId;
-    db.query("SELECT restaurantName, address, phone FROM restaurant WHERE restaurantId = ?",[restaurantId],
+    db.query("SELECT restaurantName, address, phone, openTime FROM restaurant WHERE restaurantId = ?",[restaurantId],
         function(error,results,fields){
             if(error) console.log(error);
             const restaurant=JSON.parse(JSON.stringify(results[0]));
@@ -123,14 +123,17 @@ export const getEditManager = (req, res) => {
 }
 
 export const postEditManager = (req, res) => {
-    const {restaurantName,address,start_time, categoryId, phone}=req.body;
+    const {restaurantName,address, categoryId, phone}=req.body;
     const restId=req.session.user.restaurantId;
-    if(restaurantName && address && start_time && categoryId && phone){
-            db.query('UPDATE restaurant SET restaurant.restaurantName = ?, restaurant.address = ?, restaurant.openTime = ?, restaurant.categoryId = ?, restaurant.phone=? WHERE restaurantId = ?',[restaurantName,address,start_time, categoryId, phone, restId],function(error,results,fields){
+    if(restaurantName && address && categoryId && phone){
+            db.query('UPDATE restaurant SET restaurant.restaurantName = ?, restaurant.address = ?, restaurant.categoryId = ?, restaurant.phone=? WHERE restaurantId = ?',[restaurantName,address, categoryId, phone, restId],function(error,results,fields){
                 if(error) throw error;
+                db.query('SELECT * FROM restaurant WHERE restaurantId=?', [restId], function(error, result) {
+                    req.session.user = result[0];
+                    return res.send('<script type="text/javascript">alert("매장정보 수정이 완료되었습니다."); document.location.href="/manager";</script>');    
+                });
             });
-            return res.send('<script type="text/javascript">alert("매장정보 수정이 완료되었습니다."); document.location.href="/manager";</script>');    
-    }else{
+    }else {
         return res.send('<script type="text/javascript">alert("모든 정보를 입력하세요"); history.back();</script>'); 
     }
 }

@@ -227,6 +227,9 @@ export const order=(req,res)=>{
                 });
             }
         }
-        return res.send('<script type="text/javascript">alert("주문 처리가 완료되었습니다!"); document.location.href="/";</script>');
+        db.query('DELETE FROM basket WHERE userId=?',[userId],function(error,results){
+            if (error) throw error;
+            return res.send('<script type="text/javascript">alert("주문 처리가 완료되었습니다!"); document.location.href="/";</script>');
+        });
     });
 }

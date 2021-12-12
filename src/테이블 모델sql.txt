@@ -1,0 +1,130 @@
+CREATE TABLE `category` (
+    `categoryId` int AUTO_INCREMENT NOT NULL ,
+    `categoryName` varchar(30)  NOT NULL ,                                            
+    PRIMARY KEY (
+        `categoryId`
+    )                                                                                                
+);
+
+CREATE TABLE `restaurant` (
+    `restaurantId` int AUTO_INCREMENT NOT NULL ,
+    `restaurantName` varchar(30)  NOT NULL ,
+    `imageUrl` text  NULL ,
+    `userId` int  NOT NULL ,
+    `categoryId` int  NOT NULL ,
+    `openTime` varchar(50)  NOT NULL ,
+    `phoneNum` varchar(20)  NOT NULL ,
+    `status` int  NOT NULL DEFAULT '0',
+    PRIMARY KEY (
+        `restaurantId`
+    )
+);
+
+CREATE TABLE `search` (
+    `searchId` int AUTO_INCREMENT NOT NULL ,
+    `userId` int  NOT NULL ,
+    `content` varchar(50)  NOT NULL ,
+    PRIMARY KEY (
+        `searchId`
+    )
+);
+
+CREATE TABLE `menu` (
+    `menuId` int AUTO_INCREMENT NOT NULL ,
+    `restaurantId` int  NOT NULL ,
+    `categoryId` int  NOT NULL ,
+    `menuName` varchar(30)  NOT NULL ,
+    `info` varchar(50)  NOT NULL ,
+    `price` int  NOT NULL ,
+    `quantity` int  NOT NULL ,
+    `imageUrl` text  NULL ,
+    PRIMARY KEY (
+        `menuId`
+    )
+);
+
+CREATE TABLE `user` (
+    `userId` int AUTO_INCREMENT NOT NULL ,
+    `name` varchar(30)  NOT NULL ,
+    `email` varchar(30)  NOT NULL ,
+    `id` varchar(30)  NOT NULL ,
+    `pw` varchar(30)  NOT NULL ,
+    `phone` varchar(30)  NOT NULL ,
+    `status` int  NOT NULL DEFAULT '0',
+    PRIMARY KEY (
+        `userId`
+    )
+);
+
+CREATE TABLE `order` (
+    `orderId` int AUTO_INCREMENT NOT NULL ,
+    `userId` int  NOT NULL ,
+    `menuId` int  NOT NULL ,
+    `restaurantId` varchar(30)  NOT NULL ,
+    `request` varchar(50)  NOT NULL ,
+
+    PRIMARY KEY (
+        `orderId`
+    )
+);
+
+CREATE TABLE `review` (
+    `reviewId` int AUTO_INCREMENT NOT NULL ,
+    `userId` int  NOT NULL ,
+    `menuId` int  NOT NULL ,
+    `restaurantId` int  NOT NULL ,
+    `comment` varchar(50)  NULL ,
+    `point` int  NOT NULL ,
+    PRIMARY KEY (
+        `reviewId`
+    )
+);
+
+CREATE TABLE `basket` (
+    `basketId` int AUTO_INCREMENT NOT NULL ,
+    `userId` int  NOT NULL ,
+    `menuId` int  NOT NULL ,
+    `pay` int  NOT NULL ,
+    PRIMARY KEY (
+        `basketId`
+    )
+);
+
+ALTER TABLE `restaurant` ADD CONSTRAINT `fk_restaurant_userId` FOREIGN KEY(`userId`)
+REFERENCES `user` (`userId`);
+
+ALTER TABLE `restaurant` ADD CONSTRAINT `fk_restaurant_categoryId` FOREIGN KEY(`categoryId`)
+REFERENCES `category` (`categoryId`);
+
+ALTER TABLE `search` ADD CONSTRAINT `fk_search_userId` FOREIGN KEY(`userId`)
+REFERENCES `user` (`userId`);
+
+ALTER TABLE `menu` ADD CONSTRAINT `fk_menu_restaurantId` FOREIGN KEY(`restaurantId`)
+REFERENCES `restaurant` (`restaurantId`);
+
+ALTER TABLE `menu` ADD CONSTRAINT `fk_menu_categoryId` FOREIGN KEY(`categoryId`)
+REFERENCES `category` (`categoryId`);
+
+ALTER TABLE `order` ADD CONSTRAINT `fk_order_userId` FOREIGN KEY(`userId`)
+REFERENCES `user` (`userId`);
+
+ALTER TABLE `order` ADD CONSTRAINT `fk_order_menuId` FOREIGN KEY(`menuId`)
+REFERENCES `menu` (`menuId`);
+
+ALTER TABLE `order` ADD CONSTRAINT `fk_order_restaurantId` FOREIGN KEY(`restaurantId`)
+REFERENCES `restaurant` (`restaurantId`);
+
+ALTER TABLE `review` ADD CONSTRAINT `fk_review_userId` FOREIGN KEY(`userId`)
+REFERENCES `user` (`userId`);
+
+ALTER TABLE `review` ADD CONSTRAINT `fk_review_menuId` FOREIGN KEY(`menuId`)
+REFERENCES `menu` (`menuId`);
+
+ALTER TABLE `review` ADD CONSTRAINT `fk_review_restaurantId` FOREIGN KEY(`restaurantId`)
+REFERENCES `restaurant` (`restaurantId`);
+
+ALTER TABLE `basket` ADD CONSTRAINT `fk_basket_userId` FOREIGN KEY(`userId`)
+REFERENCES `user` (`userId`);
+
+ALTER TABLE `basket` ADD CONSTRAINT `fk_basket_menuId` FOREIGN KEY(`menuId`)
+REFERENCES `menu` (`menuId`);

@@ -7,7 +7,15 @@
 Nodejs, ES6, Pug, mySQL
 
 ## 프로젝트 기간
-2021. 09. 27 ~ 2021. 12. 13
+2021. 9. 27 ~ 2021. 12. 13
 
-## 웹페이지
+## 웹페이지 실행
+1. code를 다운받는다.
+2. 터미널을 실행한다.
+3. `npm i`로 node_modules를 설치한다.
+4. `npm run server`로 서버를 실행한다.
+5. `localhost:5000`로 웹사이트에 접속한다.
 
+### 메인 페이지
+
+![1](https://user-images.githubusercontent.com/43626362/145934957-8f7463c2-eb77-4dbd-a998-11358ab7c7db.png)

@@ -16,6 +16,8 @@ Nodejs, ES6, Pug, mySQL
 4. `npm run server`로 서버를 실행한다.
 5. `localhost:5000`로 웹사이트에 접속한다.
 
-### 메인 페이지
+</br>
 
-![1](https://user-images.githubusercontent.com/43626362/145934957-8f7463c2-eb77-4dbd-a998-11358ab7c7db.png)
+## 메인 페이지
+
+![1](https://user-images.githubusercontent.com/43626362/145935059-eaa5f198-11d1-4442-bc5a-1b6bfcd474c2.png)
